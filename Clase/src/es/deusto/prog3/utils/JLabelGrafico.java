@@ -20,9 +20,9 @@ public class JLabelGrafico extends JLabel {
 		f.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
 		// f.setLocation( 2000, 100 );   // Si se quiere cambiar la posición
 		f.getContentPane().setLayout( null );
-		JLabel label = new JLabel( new ImageIcon( "src/tema3/img/coche.png" ) );
+		JLabel label = new JLabel( new ImageIcon( "src/es/deusto/prog3/cap00/coche.png" ) );  // JLabel normal - como fichero
 		label.setBounds( 0, 0, 150, 150 );
-		JLabelGrafico labelGrafico = new JLabelGrafico( "/tema3/img/coche.png", 100, 100 );
+		JLabelGrafico labelGrafico = new JLabelGrafico( "/es/deusto/prog3/cap00/coche.png", 100, 100 );  // JLabelGrafico - como recurso
 		labelGrafico.setLocation( 400, 100 );
 			// TODO probar este 300, 300 con diferentes tamaños. Si x<=0 ajusta el ancho y si es y<=0 ajusta el alto
 		f.setSize( 600, 400 );

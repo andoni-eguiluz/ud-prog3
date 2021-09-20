@@ -17,7 +17,8 @@ public class ErrorPintadoTardio {
 		f.setVisible( true );  // (1) Visualizamos (Quizás DEMASIADO PRONTO!)
 		
 		JLabel lCoche = new JLabel();
-		lCoche.setIcon( new ImageIcon( ErrorPintadoTardio.class.getResource("coche.png") ) );
+		lCoche.setIcon( new ImageIcon( ErrorPintadoTardio.class.getResource("coche.png") ) );  // (a) Opción de coger una imagen como recurso
+		// lCoche.setIcon( new ImageIcon( "src/es/deusto/prog3/cap00/coche.png" ) );  // (b) Opción de coger una imagen como fichero
 		lCoche.setBounds( 100, 50, 300, 300 );
 		f.getContentPane().add( lCoche );  // (2)
 		

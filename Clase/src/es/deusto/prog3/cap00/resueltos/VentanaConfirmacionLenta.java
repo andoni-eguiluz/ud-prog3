@@ -48,14 +48,19 @@ public class VentanaConfirmacionLenta {
 		verHilos( "Después de setVisible" );
 		bAceptar.addActionListener( new ActionListener() { // Clase anónima que implementa ActionListener para crear el objeto escuchador 
 			// Este objeto escuchador es un "paquete" de trabajo que se le manda a Swing pero que no se ejecuta... será Swing quien lo ejecute
-			@Override
+			// NUEVO bAceptar (*)
+		@Override
 			public void actionPerformed(ActionEvent e) {
+				// marca C1
 				bAceptar.setEnabled( false );
 				Thread hilo = new Thread() {  // Clase anónima heredada de Thread para crear el hilo
+					// NUEVO bAceptar (*)
 					public void run() {  // Método principal que debe tener todo hilo - es como el main para cada hilo
+						// marca C2
 						verHilos( "Dentro del hilo" );
 						System.out.println( "Empiezo" );  // Para ver cuándo empieza en consola
 						procesoConfirmar();
+						// marca C2bis
 						System.out.println( "Acabo" );  // Para ver cuándo acaba en consola
 						bAceptar.setEnabled( true );
 					}
@@ -63,9 +68,13 @@ public class VentanaConfirmacionLenta {
 				hilo.setDaemon( true );  // Manera de acabar el hilo cuando se cierre la ventana. Tb se podría hacer con interrupt() o con variable lógica
 				hilo.start();  // hilo.run(); ejecutaría desde el mismo hilo (Swing) - no solucionaría nada
 				// bAceptar = null;  // Si hiciéramos esto sin ser atributo no funciona (debe ser final)
+				// marca C3
 			}
 		} );
 	}
+	
+	// ¿En qué orden se ejecutan las marcas?  C1 -> C3, C1->C2, y C2 -> C2bis. Pero no podemos asegurar nada de C2 o C2b con respecto a C3!
+	// Ámbitos ajenos a la variable b - se crean nuevas variables "copia"  (*) - ¿mejor con atributos?
 	
 	private static void verHilos( String mensaje ) {
 		Set<Thread> conjuntoHilos = Thread.getAllStackTraces().keySet();

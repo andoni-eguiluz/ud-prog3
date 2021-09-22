@@ -1,4 +1,4 @@
-package es.deusto.prog3.cap00;
+package es.deusto.prog3.cap00.resueltos;
 
 import java.util.Random;
 import java.awt.*;

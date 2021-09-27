@@ -20,8 +20,6 @@ import javax.swing.*;
  */
 public class VentanaConfirmacionLenta {
 
-	// Modificación de 27/9
-	
 		private static Random r = new Random();
 	// Este método simula un proceso que tarda un tiempo en hacerse (entre 5 y 10 segundos)
 	private static void procesoConfirmar() {

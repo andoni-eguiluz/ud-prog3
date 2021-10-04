@@ -8,8 +8,6 @@ import java.util.function.Consumer;
 
 import javax.swing.*;
 
-import utils.scrapWeb.ScrapWeb.ProcesadoWeb;
-
 /** Ejemplo/ejercicio para mostrar la sintaxis funcional de Java 8
  * Ejercicio: haz que el botón procese la lista de strings que mete el usuario en el cuadro de texto
  * y que muestre los enteros uno a uno (2 segundos cada uno) en el label de mensaje

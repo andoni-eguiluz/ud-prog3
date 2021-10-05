@@ -9,6 +9,7 @@ public class Contador {
 	// Parte static - main de prueba (ejercicio de hilo)
 	
 	private static long MS_PAUSA = 0; // Milisegundos de pausa en el incremento / decremento
+	private static int NUM_REPETICIONES = 100000;
 	
 	public static void main(String[] args) {
 		// Creamos un contador
@@ -17,7 +18,7 @@ public class Contador {
 		// Incrementamos 1.000 veces (en un hilo)
 		Thread hilo1 = new Thread() {
 			public void run() {
-				for (int i=0; i<1000; i++) {
+				for (int i=0; i<NUM_REPETICIONES; i++) {
 					cont.inc(1);
 					if (MS_PAUSA>0) try { Thread.sleep(MS_PAUSA); } catch (InterruptedException e) { } // Pausa entre iteraciones si procede
 				}
@@ -26,7 +27,7 @@ public class Contador {
 		// Decrementamos 1.000 veces (en otro hilo)
 		Thread hilo2 = new Thread() {
 			public void run() {
-				for (int i=0; i<1000; i++) {
+				for (int i=0; i<NUM_REPETICIONES; i++) {
 					cont.dec(1);
 					if (MS_PAUSA>0) try { Thread.sleep(MS_PAUSA); } catch (InterruptedException e) { } // Pausa entre iteraciones si procede
 				}

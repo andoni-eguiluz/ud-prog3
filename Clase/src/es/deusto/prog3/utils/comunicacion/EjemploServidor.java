@@ -113,7 +113,7 @@ public class EjemploServidor {
 		    				break;
 		    			}
 		    			lEstado.setText( "Recibido de cliente " + nomCliente + ": [" + objRecibido + "]" );
-		    			taMensajes.append( objRecibido + "\n" );
+		    			taMensajes.append( "[" + nomCliente + "] " + objRecibido + "\n" );
 		    			taMensajes.setSelectionStart( taMensajes.getText().length() );  // Pone el cursor al final del textarea
 		    			output.writeObject( ConfigCS.RECIBIDO ); // Confirma al cliente
 		    			// Envía el mensaje al resto de clientes

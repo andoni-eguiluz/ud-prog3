@@ -3,7 +3,7 @@ package es.deusto.prog3.cap01.ejercicios;
 /** Utilidades de Strings de ejemplo
  * Clase preparada para hacer con ella pruebas unitarias con JUnit
  * @author Andoni Eguíluz Morán
- * Facultad de Ingeniería - Universidad de Deusto
+ * Facultad de Ingeniería - Universidad de Deusto	
  */
 public class UtilsString {
 

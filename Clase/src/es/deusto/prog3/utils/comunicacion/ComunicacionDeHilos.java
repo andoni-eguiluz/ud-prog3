@@ -49,7 +49,7 @@ public class ComunicacionDeHilos {
 				while (true) {
 					try { Thread.sleep(500); } catch (InterruptedException e) {}  // Pausita
 					while (!listaNums.isEmpty()) {
-						System.out.println( "Hilo 1 consume: " + listaNums.remove(0) );
+						System.out.println( "Hilo 2 consume: " + listaNums.remove(0) );
 					}
 				}
 			}

@@ -69,12 +69,14 @@ public class ObjetoMovil {
 	public void dibuja( Graphics2D g ) {
 		int x = (int) Math.round( posX ) - 10;
 		int y = (int) Math.round( posY ) - 10;
-		g.setColor( Color.BLUE );
-		g.drawOval( x, y, 20, 20 );
+		if (g!=null) g.setColor( Color.BLUE );
+		if (g!=null) g.drawOval( x, y, 20, 20 );
 	}
 
 	// Atributos para la prueba de ventana del objeto móvil
-	private static ObjetoMovil movil = new ObjetoMovil();
+	public static ObjetoMovil movil = new ObjetoMovil();
+	public static Thread hilo;
+	
 	private static BufferedImage dibujo;
 	private static Graphics2D gDibujo;
 	private static JPanel pDibujo;
@@ -115,7 +117,12 @@ public class ObjetoMovil {
 		bDisparo.addActionListener( new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				hiloMovimiento();
+				double vx = Double.parseDouble( tfVelX.getText() );
+				double vy = Double.parseDouble( tfVelY.getText() );
+				double acx = Double.parseDouble( tfAcelX.getText() );
+				double acy = Double.parseDouble( tfAcelY.getText() );
+				init();
+				hiloMovimiento( vx, vy, acx, acy );
 			}
 		});
 		// La hacemos visible
@@ -131,36 +138,35 @@ public class ObjetoMovil {
 	
 	// Borra el panel para poder dibujar el siguiente fotograma (lo pinta entero de blanco)
 	private static void borraDibujo() {
-		gDibujo.setColor( Color.white );
-		gDibujo.fillRect( 0, 0, 3000, 3000 );  // Fondo blanco
+		if (gDibujo!=null) gDibujo.setColor( Color.white );
+		if (gDibujo!=null) gDibujo.fillRect( 0, 0, 3000, 3000 );  // Fondo blanco
 	}
 	
 	// Hilo de movimiento (lanzado desde el botón)
-	private static void hiloMovimiento() {
-		new Thread() {
+	public static void hiloMovimiento( double vx, double vy, double acx, double acy ) {
+		hilo = new Thread() {
 			public void run() {
 				try {
-					double vx = Double.parseDouble( tfVelX.getText() );
-					double vy = Double.parseDouble( tfVelY.getText() );
-					double acx = Double.parseDouble( tfAcelX.getText() );
-					double acy = Double.parseDouble( tfAcelY.getText() );
-					init();
 					movil.setVelX( vx );
 					movil.setVelY( vy );
 					movil.dibuja( gDibujo ); // Dibuja el móvil en la posición inicial
 					// Bucle de animación: Mientras el móvil no se salga, lo mueve y dibuja cada 20 milisegundos
-					while (movil.getPosX()>-20 && movil.getPosY()<pDibujo.getHeight()+20 && movil.getPosX()<pDibujo.getWidth()+20) {
-						try { Thread.sleep( 20 ); } catch (InterruptedException e) {}
-						movil.mueve( 20, acx, acy );
+					int anchMax = (pDibujo==null) ? 10000 : pDibujo.getHeight()+20;
+					double altMax = (pDibujo==null) ? movil.getPosY() : pDibujo.getWidth()+20;
+					while (movil.getPosX()>=0 && movil.getPosY()<anchMax && movil.getPosX()<=altMax && movil.getPosY()>=0) {
+						try { Thread.sleep( 10 ); } catch (InterruptedException e) {}
+						movil.mueve( 10, acx, acy );
 						borraDibujo(); // Borra el panel
 						movil.dibuja( gDibujo ); // Dibuja el móvil en su nueva posición
-						pDibujo.repaint(); // Repinta el panel completo
+						if (pDibujo!=null) pDibujo.repaint(); // Repinta el panel completo
 					}
 				} catch (Exception e) {
+					e.printStackTrace();
 					JOptionPane.showMessageDialog( null, "Valores de velocidad/aceleración incorrectos", "Error", JOptionPane.ERROR_MESSAGE );
 				}
 			}
-		}.start();
+		};
+		hilo.start();
 	}
 
 }

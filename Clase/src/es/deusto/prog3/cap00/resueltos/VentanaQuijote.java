@@ -85,7 +85,7 @@ public class VentanaQuijote extends JFrame {
 		hiloActual.start();
 	}
 	
-	private void cargaQuijote() {
+	public void cargaQuijote() {
 		try {
 			Scanner scanner = new Scanner( VentanaQuijote.class.getResourceAsStream( "DonQuijote.txt" ), "UTF-8" );
 			while (scanner.hasNextLine()) {

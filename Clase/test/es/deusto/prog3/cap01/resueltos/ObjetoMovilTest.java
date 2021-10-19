@@ -22,22 +22,22 @@ public class ObjetoMovilTest {
 	@Test
 	public void testVelocidadInicialYFinal() {
 		ObjetoMovil.movil = new ObjetoMovil();
-		ObjetoMovil.hiloMovimiento( 400, 1000, 0, 980.0 );
+		ObjetoMovil.movil.setPosY( 1000 );
+		long tiempoInicio = System.currentTimeMillis();
+		ObjetoMovil.hiloMovimiento( 400, -1000, 0, 980.0 );
+		while (ObjetoMovil.movil.getVelY()<=0) { // Mientras está subiendo... esperar
+			// System.out.println( ObjetoMovil.movil.getPosX() + "," + ObjetoMovil.movil.getPosY() + " --> " + ObjetoMovil.movil.getVelY() );
+			try { Thread.sleep(10);} catch (InterruptedException e) {}
+		}
+		long tiempoSubida = System.currentTimeMillis();
 		try {
 			ObjetoMovil.hilo.join();  // Espera a que acabe el hilo
 		} catch (InterruptedException e) {}
-		assertEquals( 1000.0, ObjetoMovil.movil.getVelY(), 10.0 );
-	}
-
-	// Test del hilo con la ventana
-	@Test
-	public void testVelocidadInicialYFinal2() {
-		ObjetoMovil.movil = new ObjetoMovil();
-		ObjetoMovil.hiloMovimiento( 400, 1000, 0, 980.0 );
-		try {
-			ObjetoMovil.hilo.join();  // Espera a que acabe el hilo
-		} catch (InterruptedException e) {}
-		assertEquals( 1000.0, ObjetoMovil.movil.getVelY(), 10.0 );
+		long tiempoFinal = System.currentTimeMillis();
+		double subida = tiempoSubida-tiempoInicio;
+		double bajada = tiempoFinal-tiempoSubida;
+		assertEquals( (double) subida, (double) bajada, 100.0 );   // Error de 1 décima de segundo
+		assertEquals( 1000.0, ObjetoMovil.movil.getVelY(), 20.0 ); // Error de 20 píxels por segundo
 	}
 
 }

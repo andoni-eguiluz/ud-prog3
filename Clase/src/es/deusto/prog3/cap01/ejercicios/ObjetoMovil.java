@@ -117,12 +117,16 @@ public class ObjetoMovil {
 		bDisparo.addActionListener( new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				double vx = Double.parseDouble( tfVelX.getText() );
-				double vy = Double.parseDouble( tfVelY.getText() );
-				double acx = Double.parseDouble( tfAcelX.getText() );
-				double acy = Double.parseDouble( tfAcelY.getText() );
-				init();
-				hiloMovimiento( vx, vy, acx, acy );
+				try {
+					double vx = Double.parseDouble( tfVelX.getText() );
+					double vy = Double.parseDouble( tfVelY.getText() );
+					double acx = Double.parseDouble( tfAcelX.getText() );
+					double acy = Double.parseDouble( tfAcelY.getText() );
+					init();
+					hiloMovimiento( vx, vy, acx, acy );
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog( null, "Valores de velocidad/aceleración incorrectos", "Error", JOptionPane.ERROR_MESSAGE );
+				}
 			}
 		});
 		// La hacemos visible
@@ -146,23 +150,18 @@ public class ObjetoMovil {
 	public static void hiloMovimiento( double vx, double vy, double acx, double acy ) {
 		hilo = new Thread() {
 			public void run() {
-				try {
-					movil.setVelX( vx );
-					movil.setVelY( vy );
-					movil.dibuja( gDibujo ); // Dibuja el móvil en la posición inicial
-					// Bucle de animación: Mientras el móvil no se salga, lo mueve y dibuja cada 20 milisegundos
-					int anchMax = (pDibujo==null) ? 10000 : pDibujo.getHeight()+20;
-					double altMax = (pDibujo==null) ? movil.getPosY() : pDibujo.getWidth()+20;
-					while (movil.getPosX()>=0 && movil.getPosY()<anchMax && movil.getPosX()<=altMax && movil.getPosY()>=0) {
-						try { Thread.sleep( 10 ); } catch (InterruptedException e) {}
-						movil.mueve( 10, acx, acy );
-						borraDibujo(); // Borra el panel
-						movil.dibuja( gDibujo ); // Dibuja el móvil en su nueva posición
-						if (pDibujo!=null) pDibujo.repaint(); // Repinta el panel completo
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
-					JOptionPane.showMessageDialog( null, "Valores de velocidad/aceleración incorrectos", "Error", JOptionPane.ERROR_MESSAGE );
+				movil.setVelX( vx );
+				movil.setVelY( vy );
+				movil.dibuja( gDibujo ); // Dibuja el móvil en la posición inicial
+				// Bucle de animación: Mientras el móvil no se salga, lo mueve y dibuja cada 20 milisegundos
+				int anchMax = (pDibujo==null) ? 10000 : pDibujo.getWidth()+20;
+				double altInferior = (pDibujo==null) ? movil.getPosY() : pDibujo.getHeight()+20;
+				while (movil.getPosX()>=0 && movil.getPosY()>=0 && movil.getPosY()<=altInferior && movil.getPosX()<=anchMax) {
+					try { Thread.sleep( 10 ); } catch (InterruptedException e) {}
+					movil.mueve( 10, acx, acy );
+					borraDibujo(); // Borra el panel
+					movil.dibuja( gDibujo ); // Dibuja el móvil en su nueva posición
+					if (pDibujo!=null) pDibujo.repaint(); // Repinta el panel completo
 				}
 			}
 		};

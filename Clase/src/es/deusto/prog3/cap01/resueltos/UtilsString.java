@@ -31,6 +31,15 @@ public class UtilsString {
 		else
 			return s;
 	}
+
+	// Utilidad adicional - a codificar con TDD
+	
+	public static String convierteAOrdenable( String original ) {
+		// TODO pendiente de programar
+		return null;
+	}
+	
+	
 	
 	public static void main(String[] args) {
 		// Prueba convencional (no estructurada, no exhaustiva, no automatizable)

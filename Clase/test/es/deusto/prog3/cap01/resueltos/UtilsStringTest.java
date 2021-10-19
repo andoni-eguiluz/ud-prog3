@@ -1,4 +1,4 @@
-package es.deusto.prog3.cap01.ejercicios;
+package es.deusto.prog3.cap01.resueltos;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -57,4 +57,12 @@ public class UtilsStringTest {
 		UtilsString.wrapString("Andoni", -5);
 	}
 	
+	@Test
+	public void convierteAOrdenable() {
+		assertEquals( "A", UtilsString.convierteAOrdenable("a") );
+		assertEquals( "ANDONI", UtilsString.convierteAOrdenable("Andoni") );
+		assertEquals( "CANTE", UtilsString.convierteAOrdenable("canté") );
+		assertEquals( "CANZA", UtilsString.convierteAOrdenable("caña") );  // caña y cano se ordenan bien: CANZA < CANO
+	}
+
 }

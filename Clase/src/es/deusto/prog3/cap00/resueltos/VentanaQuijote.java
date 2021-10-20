@@ -17,8 +17,10 @@ import javax.swing.*;
  */
 public class VentanaQuijote extends JFrame {
 
-	private JTextArea taTexto;
-	private JScrollPane spTexto;
+	public JTextArea taTexto;
+	public JScrollPane spTexto;
+	public JButton bPagArriba;
+	public JButton bPagAbajo;
 	
 	public VentanaQuijote() {
 		setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
@@ -29,8 +31,8 @@ public class VentanaQuijote extends JFrame {
 		spTexto = new JScrollPane( taTexto );
 		add( spTexto, BorderLayout.CENTER );
 		JPanel pBotonera = new JPanel();
-		JButton bPagArriba = new JButton( "^" );
-		JButton bPagAbajo = new JButton( "v" );
+		bPagArriba = new JButton( "^" );
+		bPagAbajo = new JButton( "v" );
 		pBotonera.add( bPagArriba );
 		pBotonera.add( bPagAbajo );
 		add( pBotonera, BorderLayout.SOUTH );

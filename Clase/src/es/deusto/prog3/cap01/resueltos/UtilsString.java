@@ -36,7 +36,17 @@ public class UtilsString {
 	
 	public static String convierteAOrdenable( String original ) {
 		// TODO pendiente de programar
-		return null;
+		String ret = original.toUpperCase();
+
+		// ret = ret.replaceAll("É", "E").replaceAll("Á", "A").replaceAll("Í", "I").replaceAll("Ó", "O").replaceAll("Ú", "U");
+
+		String[] queCambio = { "Á", "É", "Í", "Ó", "Ú", "Ñ" };
+		String[] aQue = { "A", "E", "I", "O", "U", "NZ" };
+		for (int i=0; i<queCambio.length; i++) {
+			ret = ret.replaceAll( queCambio[i], aQue[i] );
+		}
+		
+		return ret;
 	}
 	
 	

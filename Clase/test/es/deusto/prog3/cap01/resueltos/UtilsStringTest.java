@@ -60,8 +60,24 @@ public class UtilsStringTest {
 	@Test
 	public void convierteAOrdenable() {
 		assertEquals( "A", UtilsString.convierteAOrdenable("a") );
-		assertEquals( "ANDONI", UtilsString.convierteAOrdenable("Andoni") );
+	}
+
+	@Test
+	public void convierteAOrdenable2() {
+		String[] origen = { "Andoni", "Emilio", "Itziar", "Elena" };
+		String[] destino = { "ANDONI", "EMILIO", "ITZIAR", "ELENA" };
+		for (int i=0; i<origen.length; i++) {
+			assertEquals( destino[i], UtilsString.convierteAOrdenable(origen[i]) );
+		}
+	}
+
+	@Test
+	public void convierteAOrdenable3() {
 		assertEquals( "CANTE", UtilsString.convierteAOrdenable("canté") );
+	}
+
+	@Test
+	public void convierteAOrdenable4() {
 		assertEquals( "CANZA", UtilsString.convierteAOrdenable("caña") );  // caña y cano se ordenan bien: CANZA < CANO
 	}
 

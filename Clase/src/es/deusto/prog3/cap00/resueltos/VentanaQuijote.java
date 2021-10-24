@@ -17,10 +17,10 @@ import javax.swing.*;
  */
 public class VentanaQuijote extends JFrame {
 
-	public JTextArea taTexto;
-	public JScrollPane spTexto;
-	public JButton bPagArriba;
-	public JButton bPagAbajo;
+	protected JTextArea taTexto;
+	protected JScrollPane spTexto;
+	protected JButton bPagArriba;
+	protected JButton bPagAbajo;
 	
 	public VentanaQuijote() {
 		setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );

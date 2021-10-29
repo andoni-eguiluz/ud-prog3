@@ -1,0 +1,23 @@
+Ejercicio:
+
+Prueba el test de unidad ya definido TestEjemploFicheros  (carpeta test, paquete es.deusto.prog3.cap03)
+(necesitarás importar sqlite-jdbc por ejemplo descargando sqlite-jdbc-3.23.1.jar de
+ https://bitbucket.org/xerial/sqlite-jdbc/downloads/
+)
+
+Mira cómo funciona y comprueba que funciona. Lo que hace este test 
+es generar unos cuantos usuarios de prueba y primero los guarda en fichero (o bd)
+y luego carga ese mismo fichero y comprueba que los usuarios leídos son los mismos 
+que los previamente guardados.
+
+1.- Entiende el test y los métodos que este test prueba
+    (observa los ficheros que se generan para entenderlo)
+
+2.- Juega a ser hacker de tu mismo código (una buena práctica para hacer código seguro).
+    Busca una manera de añadir algún usuario nuevo (correcto) que consiga que...
+    2a.- ...deje de funcionar testLeerYEscribirAFicheroConComas()
+    2b.- ...deje de funcionar testLeerYEscribirAFicheroConTags()
+    2c.- ...deje de funcionar testLeerYEscribirAFicheroSerializado()
+    2d.- ...deje de funcionar testLeerYEscribirABD()
+
+3.- ¿Cómo corregirías los métodos de lectura y escritura para que estos test vuelvan a funcionar?

@@ -12,7 +12,7 @@ public class UtilsString {
 	 * @return	Mismo string sustituyendo \t con el carácter | y \n con el carácter #; Devuelve null si s es null.
 	 */
 	public static String quitarTabsYSaltosLinea( String s ) {
-		return s.replaceAll( "\n", "|" ).replaceAll( "\t", "|" );  // CORREGIDO "#" en vez de "|"
+		return s.replaceAll( "\n", "|" ).replaceAll( "\t", "|" );
 	}
 	
 	/** Devuelve cualquier string truncado al número de caracteres indicado, con puntos suspensivos al final si se ha truncado

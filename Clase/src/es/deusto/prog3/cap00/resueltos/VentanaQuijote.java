@@ -17,10 +17,8 @@ import javax.swing.*;
  */
 public class VentanaQuijote extends JFrame {
 
-	protected JTextArea taTexto;
-	protected JScrollPane spTexto;
-	protected JButton bPagArriba;
-	protected JButton bPagAbajo;
+	private JTextArea taTexto;
+	private JScrollPane spTexto;
 	
 	public VentanaQuijote() {
 		setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
@@ -31,8 +29,8 @@ public class VentanaQuijote extends JFrame {
 		spTexto = new JScrollPane( taTexto );
 		add( spTexto, BorderLayout.CENTER );
 		JPanel pBotonera = new JPanel();
-		bPagArriba = new JButton( "^" );
-		bPagAbajo = new JButton( "v" );
+		JButton bPagArriba = new JButton( "^" );
+		JButton bPagAbajo = new JButton( "v" );
 		pBotonera.add( bPagArriba );
 		pBotonera.add( bPagAbajo );
 		add( pBotonera, BorderLayout.SOUTH );
@@ -87,7 +85,7 @@ public class VentanaQuijote extends JFrame {
 		hiloActual.start();
 	}
 	
-	public void cargaQuijote() {
+	private void cargaQuijote() {
 		try {
 			Scanner scanner = new Scanner( VentanaQuijote.class.getResourceAsStream( "DonQuijote.txt" ), "UTF-8" );
 			while (scanner.hasNextLine()) {

@@ -9,18 +9,6 @@ public class Compra {
 	private int cantidad;
 	private Producto producto;
 	
-	// safsd fas
-	// sadf sadfsd
-	// safsd fas
-	// sadf sadfsd
-	// safsd fas
-	// sadf sadfsd
-	// safsd fas
-	// sadf sadfsd
-	// safsd fas
-	// sadf sadfsd
-	
-	
 	public Compra(int id, long fecha, int cantidad, Producto producto) {
 		super();
 		this.id = id;
@@ -57,24 +45,15 @@ public class Compra {
 		return producto;
 	}
 
+	public void setProducto(Producto producto) {
+		this.producto = producto;
+	}
+
 		private static SimpleDateFormat sdf = new SimpleDateFormat( "dd/MM/yy HH:mm:ss" );
 	@Override
 	public String toString() {
 		return id + "\t" + producto.getId() + "\t" + sdf.format( new Date( fecha ) ) + "\t" + cantidad + " unidades";
 	}
-
-	
-	// safsd fas
-	// sadf sadfsd
-	// safsd fas
-	// sadf sadfsd
-	// safsd fas
-	// sadf sadfsd
-	// safsd fas
-	// sadf sadfsd
-	// safsd fas
-	// sadf sadfsd
-	
 	
 	@Override
 	public boolean equals(Object obj) {

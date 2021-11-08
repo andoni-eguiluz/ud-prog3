@@ -21,6 +21,7 @@ public class VentanaComoContenedorRecursivo {
 	 */
 	public static void main(String[] args) {
 		VentanaBancoDePruebas v = new VentanaBancoDePruebas();
+		v.setVisible( true );
 		visualizarEstructuraVentana( v );
 	}
 

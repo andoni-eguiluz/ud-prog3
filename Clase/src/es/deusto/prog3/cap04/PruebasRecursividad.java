@@ -23,10 +23,10 @@ public class PruebasRecursividad {
 		// System.out.println( "Dobleces para luna:" );
 		// Divide y vencerás:
 		int[] v = { 1, 2, 3, 7, 9, 11, 12, 14, 17, 18, 21 };
-		System.out.println( busquedaBinaria( v ) );
+		System.out.println( busquedaBinaria( 7, v ) );
 	}
 	
-	private static int busquedaBinaria( int[] v ) {
+	private static int busquedaBinaria( int valor, int[] vector ) {
 		// TODO 
 		return -1;
 	}

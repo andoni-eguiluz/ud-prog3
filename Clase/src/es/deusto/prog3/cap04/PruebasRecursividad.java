@@ -22,14 +22,95 @@ public class PruebasRecursividad {
 		// System.out.println( "Número de llamadas:" + llF );
 		// System.out.println( "Dobleces para luna:" );
 		// Divide y vencerás:
-		int[] v = { 1, 2, 3, 7, 9, 11, 12, 14, 17, 18, 21 };
-		System.out.println( busquedaBinaria( 7, v ) );
+		// int[] v = { 1, 2, 3, 7, 9, 11, 12, 14, 17, 18, 21 };
+		// System.out.println( busquedaBinaria( 19, v ) );
+		// hanoi( 4, 'a', 'b', 'c' );
+		char[] letras = { 'a', 'b', 'c' };
+		combinaLetras( letras );
+		combinaLetrasRec( letras, 7, "" );
 	}
 	
-	private static int busquedaBinaria( int valor, int[] vector ) {
-		// TODO 
-		return -1;
+	// Combinaciones recursivas de letras
+	// Por cada una de mis letras:
+	//   Cojo esa letra y la combino recursivamente con el resto de tamaño-1
+	// Si el tamaño es 0, visualizo la combinación
+	private static void combinaLetrasRec( char[] letras, int tamanyo, String combBase ) {
+		if (tamanyo==0) {
+			System.out.println( combBase );
+		} else {
+			for (char c : letras) {
+				combinaLetrasRec( letras, tamanyo-1, combBase + c );
+			}
+		}
 	}
+	
+	private static void combinaLetras( char[] letras ) {
+		for (char c : letras) {
+			for (char c2 : letras) {
+				for (char c3 : letras) {
+					System.out.println( "" + c + c2 + c3 );
+				}
+			}
+		}
+	}
+	
+	// Resolver una torre de hanoi de tamaño n con las varillas or, aux, dest:
+	// - Si el tamaño es 1 -> caso base -> mover el disco 1 de la or a la dest
+	// - Si no:
+	//   - Resolver recursivamente la torre n-1 con las varillas or, dest, aux
+	//   - Mover el disco n de la or a la dest
+	//   - Resolver recursivamente la torre n-1 con las varillas aux, or, dest
+	private static void hanoi( int tam, char origen, char aux, char destino ) {
+		if (tam==1) {
+			System.out.println( "Mueve disco 1 de " + origen + " a " + destino );
+		} else {
+			hanoi( tam-1, origen, destino, aux );
+			System.out.println( "Mueve disco " + tam + " de " + origen + " a " + destino );
+			hanoi( tam-1, aux, origen, destino );
+		}
+	}
+	
+	
+	/** Busca un elemento en un vector
+	 * @param valor	Elemento a buscar
+	 * @param vector	Vector en el que buscar
+	 * @return	Posición en la que se encuentra
+	 */
+	public static int busquedaBinaria( int valor, int[] vector ) {
+		return busquedaBinaria( valor, vector, 0, vector.length-1 );
+	}
+
+	// Buscar un elemento valor en un vector de tamaño n:
+	//  - ¿Es el vector vacío? -> caso base -> devolver -1
+	//  - Coger el elemento de la mitad (n/2)
+	//    - ¿Es == al valor? --> caso base --> lo tenemos --> devolvemos su posición
+	//    - ¿Es < al valor? --> caso recursivo -> buscar binaria en la mitad de la derecha
+	//    - ¿Es > al valor? --> caso recursivo -> buscar binaria en la mitad de la izquierda
+	private static int busquedaBinaria( int valor, int[] vector, int ini, int fin ) {
+		System.out.println( "Buscando en " + ini + "," + fin );
+		if (ini>fin)  { // Caso base no éxito
+			return -1;
+		}
+		int mitad = (ini + fin) / 2;
+		if (vector[mitad]==valor) {
+			return mitad;  // Caso base
+		} else if (vector[mitad] < valor) {  // Caso recursivo hacia la derecha
+			return busquedaBinaria( valor, vector, mitad+1, fin );
+		} else {  // Rec por la izquierda
+			return busquedaBinaria( valor, vector, ini, mitad-1 );
+		}
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	private static void doblecesLuna( double grosor, double distancia, int dobleces ) {
 		if (grosor >= distancia) {

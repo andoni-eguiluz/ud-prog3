@@ -1,11 +1,34 @@
 package es.deusto.prog3.cap04;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
 import java.awt.*;
 
 @SuppressWarnings("serial")
 public class TrianguloSierpinski extends JPanel {
 
+	private static JSlider slider;
+	private static TrianguloSierpinski panel;
+    public static void main(String[] args) {
+		JFrame f = new JFrame( "Triángulo de Sierpinski" );
+		panel = new TrianguloSierpinski(8);
+		f.getContentPane().add( panel, BorderLayout.CENTER );
+		slider = new JSlider( 1, 10, 8 );
+		slider.addChangeListener( new ChangeListener() {
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				panel.setDepth( slider.getValue() );
+				f.getContentPane().repaint();
+			}
+		});
+		f.getContentPane().add( slider, BorderLayout.SOUTH );
+		f.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
+		f.setSize( 640, 520 );
+		f.setVisible( true );
+	}
+    
 	/* Offset de dibujado desde los laterales inferior y superior en pixels */
     public static int OFFSET = 25;
     
@@ -22,6 +45,10 @@ public class TrianguloSierpinski extends JPanel {
 	 */
 	public TrianguloSierpinski( int depth ) {
 		this();
+		this.depth = depth;
+	}
+	
+	public void setDepth( int depth ) {
 		this.depth = depth;
 	}
 
@@ -68,13 +95,5 @@ public class TrianguloSierpinski extends JPanel {
             drawTriangles(g, depth - 1, puntoMedio(p3,p1), puntoMedio(p2,p3), p3);
         }
     }
-    
-    public static void main(String[] args) {
-		JFrame f = new JFrame( "Triángulo de Sierpinski" );
-		f.getContentPane().add( new TrianguloSierpinski(8), BorderLayout.CENTER );
-		f.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
-		f.setSize( 640, 520 );
-		f.setVisible( true );
-	}
     
 }

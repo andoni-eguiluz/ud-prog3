@@ -1,5 +1,8 @@
 package es.deusto.prog3.cap04;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class PruebasRecursividad {
 	public static void main(String[] args) {
 		// Recursividad lineal:
@@ -28,8 +31,69 @@ public class PruebasRecursividad {
 		char[] letras = { 'a', 'b', 'c' };
 		combinaLetras( letras );
 		combinaLetrasRec( letras, 7, "" );
+		ArrayList<String> combs = combinaYDevLetrasRec( letras, 7, "" );
+		System.out.println( combs.size() );
+		System.out.println( combs );
+		ArrayList<String> combs2 = new ArrayList<String>();
+		combinaYAgrupaLetrasRec( letras, 7, "", combs2 );
+		System.out.println( combs2 );
+		System.out.println( combs2.size() );
+		combinaLetrasRecConFiltro( letras, 7, "" );
+	}
+
+	private static void combinaLetrasRecConFiltro( char[] letras, int tamanyo, String combBase ) {
+		if (tamanyo==0) {
+			System.out.println( combBase );
+		} else {
+			for (char c : letras) {
+				if (cumpleRequisitos(combBase+c)) {
+					combinaLetrasRecConFiltro( letras, tamanyo-1, combBase + c );
+				}  // else poda
+			}
+		}
 	}
 	
+	private static boolean cumpleRequisitos( String comb ) {
+		int numAes = 0;
+		for (int i=0; i<comb.length(); i++) {
+			if (comb.charAt(i)=='a') {
+				numAes++;
+			}
+		}
+		return (numAes<=2);
+	}
+	
+	private static void combinaYAgrupaLetrasRec( char[] letras, int tamanyo, String combBase, ArrayList<String> combs ) {
+		if (tamanyo==0) {
+			// System.out.println( combBase );
+			// combs = new ArrayList<String>();
+			combs.add( combBase );
+		} else {
+			for (char c : letras) {
+				combinaYAgrupaLetrasRec( letras, tamanyo-1, combBase + c, combs );
+			}
+		}
+	}
+	
+	
+	private static ArrayList<String> combinaYDevLetrasRec( char[] letras, int tamanyo, String combBase ) {
+		if (tamanyo==0) {
+			ArrayList<String> ret = new ArrayList<String>();
+			ret.add( combBase );
+			// ArrayList<String> ret = new ArrayList<String>( Arrays.asList( new String[] { combBase } ) );
+			// System.out.println( combBase );
+			return ret;
+		} else {
+			ArrayList<String> ret = new ArrayList<String>();
+			for (char c : letras) {
+				ret.addAll( combinaYDevLetrasRec( letras, tamanyo-1, combBase + c ) );
+			}
+			return ret;
+		}
+	}
+	
+
+	// Versión recursiva mucho más generalizable
 	// Combinaciones recursivas de letras
 	// Por cada una de mis letras:
 	//   Cojo esa letra y la combino recursivamente con el resto de tamaño-1
@@ -43,7 +107,8 @@ public class PruebasRecursividad {
 			}
 		}
 	}
-	
+
+	// Versión iterativa... ¿cómo hacerla con más letras? ¿cómo varío el número de "fors"?
 	private static void combinaLetras( char[] letras ) {
 		for (char c : letras) {
 			for (char c2 : letras) {

@@ -9,7 +9,7 @@ public class RecorridoRecursivoCarpeta {
 	}
 	
 	private static void verFicheros() {
-		File f = new File("d:/data/web");  // TODO Sustituye esta ruta por la que quieras procesar
+		File f = new File("e:/data/web");  // TODO Sustituye esta ruta por la que quieras procesar
 		System.out.println( f + " es dir? " + f.isDirectory() );
 		verFicherosRec( f, 0 );
 	}

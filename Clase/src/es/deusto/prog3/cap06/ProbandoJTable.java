@@ -27,7 +27,10 @@ public class ProbandoJTable {
 		// Para investigar la pantalla clase Toolkit y GraphicsEnvironment: 
 		// Toolkit.getDefaultToolkit().getScreenSize()
 		// GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds()
-		vent.setLocation(2000, 0);
+		// Por ejemplo:
+		GraphicsDevice[] pantallas = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices(); // Array de pantallas
+		int xUltimaPant = pantallas[ pantallas.length-1 ].getDefaultConfiguration().getBounds().x;  // Bounds de la última pantalla
+		vent.setLocation(xUltimaPant + 100, 0);  // 100 de la izquierda de la última pantalla
 		
 		// Tabla en ventana
 		modelo = new DefaultTableModel( new Object[] { "Nom", "Cod" }, 0 );
@@ -74,17 +77,19 @@ public class ProbandoJTable {
 			@Override
 			public void setValueAt(Object aValue, int row, int column) {
 				System.out.println( "setValueAt " + row + "," + column + " -> " + aValue );
-				try {
-					int valor = Integer.parseInt( aValue + "" );
-					if (valor<=255) {
-						super.setValueAt(aValue, row, column);
+				if (column==0) {  // En columna 0 funciona normal
+					super.setValueAt(aValue, row, column);
+				} else {  // En columna 1 comprueba el valor
+					try {
+						int valor = Integer.parseInt( aValue + "" );
+						if (valor<=255) {
+							super.setValueAt(aValue, row, column);
+						}
+					} catch (NumberFormatException e) {
+						// No cambiar nada
 					}
-				} catch (NumberFormatException e) {
-					// No cambiar nada
 				}
 			} 
-			
-			
 			
 		};
 		modelo.addRow( new Object[] { "Itziar", 70 } );
@@ -99,7 +104,7 @@ public class ProbandoJTable {
 			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
 					boolean hasFocus, int row, int column) {
 				Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-				System.out.println( (comp instanceof JLabel) + " -> " + comp );
+				// System.out.println( (comp instanceof JLabel) + " -> " + comp );
 				JLabel label = (JLabel) comp;
 				if (column==0) {
 					comp.setBackground( Color.white );
@@ -173,6 +178,7 @@ public class ProbandoJTable {
 				System.out.println( "Click en fila " + fila + "," + col );
 			}
 		});
+
 		
 		vent.setVisible( true );
 	}

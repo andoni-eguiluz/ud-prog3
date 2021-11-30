@@ -24,7 +24,9 @@ public class ProbandoJTable {
 		vent = new JFrame();
 		vent.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
 		vent.setSize( 400, 300 );
-		// Tamaño de pantalla Toolkit.getDefaultToolkit().getScreenSize();
+		// Para investigar la pantalla clase Toolkit y GraphicsEnvironment: 
+		// Toolkit.getDefaultToolkit().getScreenSize()
+		// GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds()
 		vent.setLocation(2000, 0);
 		
 		// Tabla en ventana

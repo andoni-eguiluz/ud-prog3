@@ -6,6 +6,7 @@ import java.awt.event.*;
 import java.util.Vector;
 
 import javax.swing.event.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /** Clase para probar y entender el funcionamiento de la JTable
@@ -17,11 +18,13 @@ public class ProbandoJTable {
 	private static JTable tabla;
 	private static DefaultTableModel modelo;
 	
+	@SuppressWarnings("serial")
 	public static void main(String[] args) {
 		// Ventana rápida
 		vent = new JFrame();
 		vent.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
 		vent.setSize( 400, 300 );
+		// Tamaño de pantalla Toolkit.getDefaultToolkit().getScreenSize();
 		vent.setLocation(2000, 0);
 		
 		// Tabla en ventana
@@ -44,6 +47,12 @@ public class ProbandoJTable {
 		
 		// Investiguemos el modelo
 		modelo = new DefaultTableModel( new Object[] { "Nom", "Cod" }, 0 ) { // Herencia
+
+//			@Override
+//			public Class<?> getColumnClass(int columnIndex) {
+//				// TODO Auto-generated method stub
+//				return super.getColumnClass(columnIndex);
+//			}
 
 			@Override
 			public boolean isCellEditable(int row, int column) {
@@ -73,14 +82,95 @@ public class ProbandoJTable {
 				}
 			} 
 			
+			
+			
 		};
 		modelo.addRow( new Object[] { "Itziar", 70 } );
 		modelo.addRow( new Object[] { "Andoni", 120 } );
 		modelo.addRow( new Object[] { "Xabi", 220 } );
 		tabla.setModel( modelo );
+	
+		tabla.getTableHeader().setReorderingAllowed(false);  // Prohibe el movimiento de columnas del usuario
 		
-		// TODO next week
-		// tabla.setDefaulRenderer
+		tabla.setDefaultRenderer( Object.class, new DefaultTableCellRenderer() {
+			@Override
+			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+					boolean hasFocus, int row, int column) {
+				Component comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+				System.out.println( (comp instanceof JLabel) + " -> " + comp );
+				JLabel label = (JLabel) comp;
+				if (column==0) {
+					comp.setBackground( Color.white );
+				} else {
+					int valor = (Integer) modelo.getValueAt(row, column);
+					// int valor = Integer.parseInt( value.toString() );
+					comp = new JSlider( 0, 255, valor );
+				}
+				if (isSelected) {
+					comp.setBackground( Color.LIGHT_GRAY );
+					if (hasFocus) {
+						label.setBorder( BorderFactory.createLineBorder( Color.cyan, 3 ));
+					}
+				}
+				return comp;
+			}
+			
+		});
+		
+		tabla.setDefaultEditor( Object.class, new DefaultCellEditor( new JTextField() ) {
+			Component ret;
+			int valorAnt;
+			JTextField tf;
+			@Override
+			public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row,
+					int column) {
+				ret = super.getTableCellEditorComponent(table, value, isSelected, row, column);
+				tf = (JTextField) ret;
+				if (column==1) {
+					tf = null;
+					int valor = Integer.parseInt( value.toString() );
+					ret = new JSlider( 0, 255, valor );
+					((JSlider)ret).addChangeListener( new ChangeListener() {
+						public void stateChanged(ChangeEvent e) {
+							valorAnt = ((JSlider)ret).getValue();
+						}
+					});
+				}
+				return ret;
+			}
+
+			@Override
+			public Object getCellEditorValue() {
+				if (tf!=null) {
+					return tf.getText();
+				} else {
+					return new Integer( valorAnt );
+				}
+			}
+			
+		});
+
+		// Y eventos de ratón?
+		tabla.addMouseListener( new MouseListener() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+			}
+			@Override
+			public void mousePressed(MouseEvent e) {
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int fila = tabla.rowAtPoint( e.getPoint() );
+				int col = tabla.columnAtPoint( e.getPoint() );
+				System.out.println( "Click en fila " + fila + "," + col );
+			}
+		});
 		
 		vent.setVisible( true );
 	}

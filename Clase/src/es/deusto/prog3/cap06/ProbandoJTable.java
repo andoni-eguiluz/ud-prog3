@@ -157,7 +157,7 @@ public class ProbandoJTable {
 			
 		});
 
-		// Y eventos de ratón?
+		// Y eventos de ratón? La base...
 		tabla.addMouseListener( new MouseListener() {
 			@Override
 			public void mouseReleased(MouseEvent e) {

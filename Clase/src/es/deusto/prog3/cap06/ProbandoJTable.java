@@ -221,6 +221,32 @@ public class ProbandoJTable {
 		tabla.addMouseListener( ma );
 		tabla.addMouseMotionListener( ma );
 
+		// Y eventos de teclado? - por ejemplo tecla supr para borrar el contenido de la celda donde se pulsa
+		
+		tabla.addKeyListener( new KeyListener() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// Supr no se puede usar con keytyped, hay teclas no visibles al "typear"
+				System.out.println( e.getKeyCode() );
+			}
+			@Override
+			public void keyReleased(KeyEvent e) {
+			}
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// Aquí sí funciona
+				System.out.println( e.getKeyCode() );
+				if (e.getKeyCode()==KeyEvent.VK_DELETE) {
+					int fila = tabla.getSelectedRow();
+					int col = tabla.getSelectedColumn();
+					String val = "0";
+					if (col==0) val = "";
+					if (col>=0 && fila>=0) modelo.setValueAt( val, fila, col );  // Borramos la celda seleccionada
+				}
+			}
+		});
+		
+		
 		vent.setVisible( true );
 		
 	}

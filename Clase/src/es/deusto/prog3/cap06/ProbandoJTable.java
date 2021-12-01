@@ -103,7 +103,7 @@ public class ProbandoJTable {
 	
 		tabla.getTableHeader().setReorderingAllowed(false);  // Prohibe el movimiento de columnas del usuario
 
-		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {
+		tabla.setDefaultRenderer( Object.class, new DefaultTableCellRenderer() {
 			@Override
 			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
 					boolean hasFocus, int row, int column) {
@@ -125,9 +125,8 @@ public class ProbandoJTable {
 				}
 				return comp;
 			}
-			
-		};
-		tabla.setDefaultRenderer( Object.class, renderer );
+
+		} );
 		
 		tabla.setDefaultEditor( Object.class, new DefaultCellEditor( new JTextField() ) {
 			Component ret;
@@ -184,6 +183,7 @@ public class ProbandoJTable {
 					modelo.setValueAt( modelo.getValueAt(filaSuel, colSuel), filaPul, colPul );
 					modelo.setValueAt( temp, filaSuel, colSuel );
 				}
+				tabla.repaint(); // Para que se repinte y quede bien toda la tabla tras el dibujado del drag
 			}
 			@Override
 			public void mouseMoved(MouseEvent e) {
@@ -194,24 +194,27 @@ public class ProbandoJTable {
 				// System.out.println( "MD " + e );
 				if (colPul==0) {
 					Graphics g = tabla.getGraphics();
-					JLabel label = new JLabel( modelo.getValueAt( filaPul, colPul ).toString() );
-					label.setOpaque( true );
-					label.setSize( tabla.getColumnModel().getColumn(0).getWidth(), tabla.getRowHeight() );
-					// label.setLocation( 50, 50 );
 					// tabla.repaint(); // No funciona porque no es síncrona la llamada, pero sí se pueden pintar las celdas que queramos antes del drag, por ejemplo:
+					// Dibujar toda la tabla de nuevo:
 					for (int fila=0; fila<modelo.getRowCount(); fila++) {
 						for (int col= 0; col<modelo.getColumnCount(); col++) {
 							Rectangle rectCelda = tabla.getCellRect( fila, col, false );
 							Graphics gCelda = g.create(rectCelda.x, rectCelda.y, rectCelda.width, rectCelda.height );
-							Component cCelda = renderer.getTableCellRendererComponent(tabla, modelo.getValueAt(fila, col), false, false, fila, col );
+							Component cCelda = tabla.getDefaultRenderer(Object.class).getTableCellRendererComponent(tabla, modelo.getValueAt(fila, col), false, false, fila, col );
 							cCelda.setSize( rectCelda.width, rectCelda.height );
-							cCelda.paint( gCelda );
+							cCelda.paint( gCelda );  // Dibujo de componente
+							gCelda.drawRect( 0, 0, rectCelda.width, rectCelda.height );  // Dibujo de borde
 						}
 					}
+					// Dibujar la etiqueta que se mueve con el drag:
+					JLabel label = new JLabel( modelo.getValueAt( filaPul, colPul ).toString() );
+					label.setOpaque( true );
+					label.setSize( tabla.getColumnModel().getColumn(0).getWidth(), tabla.getRowHeight() );
+					// label.setLocation( 50, 50 );   Esto no funciona porque el render siempre se dibuja en 0,0
 					Graphics g2 = g.create( e.getX() - label.getWidth()/2, e.getY() - label.getHeight()/2, label.getWidth(), label.getHeight() );
 					// g.translate( e.getX(), e.getY() );  Otra manera de hacerlo
 					label.paint( g2 );
-					// g.drawLine( 0, 0, e.getX(), e.getY() );
+					// g.drawLine( 0, 0, e.getX(), e.getY() );  // Si quisiéramos pintar líneas o cualquier otra cosa
 				}
 			}
 		};

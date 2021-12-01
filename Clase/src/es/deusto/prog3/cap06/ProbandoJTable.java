@@ -246,7 +246,6 @@ public class ProbandoJTable {
 			}
 		});
 		
-		
 		vent.setVisible( true );
 		
 	}

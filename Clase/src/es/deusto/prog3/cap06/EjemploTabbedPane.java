@@ -1,4 +1,4 @@
-package tema789.ejemplosSwing;
+package es.deusto.prog3.cap06;
 
 import java.awt.*;
 import javax.swing.*;

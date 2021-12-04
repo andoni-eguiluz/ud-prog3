@@ -82,6 +82,15 @@ public class SimpleTableModel implements TableModel {
 	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
 		System.out.println( "Me cambian (" + rowIndex + "," + columnIndex + ") a " + aValue + " (" + aValue.getClass().getName() + ")" );
 		datosEjemplo[rowIndex][columnIndex] = aValue;
+		// TODO 
+		// Prueba a modificar un dato del modelo con este setValue en caliente (cuando la tabla ya esté en pantalla)
+		// y comprueba que la tabla no se refresca automáticamente 
+		// Porque el modificador de dato debe notificar ese cambio a la JTable, para eso están los escuchadores
+		// (observar quién y cuándo llama al addTableModelListener de abajo)
+		// Por ejemplo podríamos añadir esto:
+		// for (TableModelListener l : myListeners) {
+		// 	l.tableChanged( new TableModelEvent( this, rowIndex, rowIndex, columnIndex ));
+		// }
 	}
 		private ArrayList<TableModelListener> myListeners = new ArrayList<>();
 	@Override

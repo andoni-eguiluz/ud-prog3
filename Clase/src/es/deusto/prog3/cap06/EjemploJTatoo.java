@@ -6,7 +6,7 @@ import javax.swing.*;
 
 
 // Ejemplo basado en http://www.jtattoo.net/HowTo_MinFrame.html
-// Descargar  JTattoo-1.6.11.jar de http://www.jtattoo.net/Download.html
+// Descargar y enlazar JTattoo-1.6.11.jar de http://www.jtattoo.net/Download.html
 
 @SuppressWarnings("serial")
 public class EjemploJTatoo extends JFrame {

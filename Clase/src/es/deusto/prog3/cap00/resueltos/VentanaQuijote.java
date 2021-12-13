@@ -18,7 +18,8 @@ import javax.swing.*;
 public class VentanaQuijote extends JFrame {
 
 	private JTextArea taTexto;
-	private JScrollPane spTexto;
+	JScrollPane spTexto;  // atributo de paquete para poder hacer test de JUnit
+	JButton bPagAbajo;    // atributo de paquete para poder hacer test de JUnit
 	
 	public VentanaQuijote() {
 		setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
@@ -30,7 +31,7 @@ public class VentanaQuijote extends JFrame {
 		add( spTexto, BorderLayout.CENTER );
 		JPanel pBotonera = new JPanel();
 		JButton bPagArriba = new JButton( "^" );
-		JButton bPagAbajo = new JButton( "v" );
+		bPagAbajo = new JButton( "v" );
 		pBotonera.add( bPagArriba );
 		pBotonera.add( bPagAbajo );
 		add( pBotonera, BorderLayout.SOUTH );
@@ -85,7 +86,7 @@ public class VentanaQuijote extends JFrame {
 		hiloActual.start();
 	}
 	
-	private void cargaQuijote() {
+	protected void cargaQuijote() {  // protected para poder hacer test de JUnit
 		try {
 			Scanner scanner = new Scanner( VentanaQuijote.class.getResourceAsStream( "DonQuijote.txt" ), "UTF-8" );
 			while (scanner.hasNextLine()) {

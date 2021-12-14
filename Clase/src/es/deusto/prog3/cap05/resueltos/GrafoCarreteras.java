@@ -12,7 +12,7 @@ public class GrafoCarreteras {
 	
 	// Versión 2 
 	private HashMap<String,ArrayList<Carretera>> carreteras;  // Grafo como un mapa de adyacencias
-	// Haría falta un set adicional si el vértice tuviera información (ahora solo es un String = nombre de ciudad)
+	// Haría falta un set o mapa adicional si el vértice tuviera información (ahora solo es un String = nombre de ciudad)
 	
 	public ArrayList<Carretera> getCarrs( String ciudad ) {
 		return carreteras.get( ciudad );

@@ -3,6 +3,7 @@ package es.deusto.prog3.cap05;
 import java.awt.Color;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.TreeSet;
 
 import es.deusto.prog3.cap06.pr0506resuelta.*;
 import es.deusto.prog3.cap06.pr0506resuelta.gui.VentanaBancoDePruebas;
@@ -31,6 +32,17 @@ public class BSTConPruebaVisual {
 		BSTDesequil bstDeseq = new BSTDesequil();
 		bstDeseq.init( 250 );
 		visualizarArboles( bstEq.bst, bstDeseq.bst ); // Visualiza los árboles esquemáticamente en una ventana gráfica
+		// En cambio, ¿cómo funciona un TreeSet/TreeMap? Como un BST equilibrado
+		TreeSet<String> treeset = new TreeSet<>();
+		treeset.add( "A" );
+		System.out.println( "Después de insertar A:" );
+		System.out.println( ExploradorObjetos.atributosYValoresToString( " ", treeset, false, false, "root#left#right#color#value" ) );
+		treeset.add( "B" );
+		System.out.println( "Después de insertar B:" );
+		System.out.println( ExploradorObjetos.atributosYValoresToString( " ", treeset, false, false, "root#left#right#color#value" ) );
+		treeset.add( "C" );
+		System.out.println( "Después de insertar C:" );
+		System.out.println( ExploradorObjetos.atributosYValoresToString( " ", treeset, false, false, "root#left#right#color#value" ) );
 	}
 
 	

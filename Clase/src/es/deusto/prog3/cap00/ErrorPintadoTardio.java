@@ -7,7 +7,7 @@ import java.awt.event.WindowListener;
 import javax.swing.*;
 
 /** Ejemplo de error por pintado tardío  (basado en uno de vuestros problemas resolviendo la práctica 0 del coche) 
- * @author andoni.eguiluz @ ingenieria.deusto.es 
+ * @author andoni.eguiluz @ ingenieria.deusto.es  
  */
 public class ErrorPintadoTardio {
 

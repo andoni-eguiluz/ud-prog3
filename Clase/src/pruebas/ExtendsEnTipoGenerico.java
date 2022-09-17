@@ -6,6 +6,8 @@ import java.util.List;
 
 /** Pequeña prueba de tipos genéricos heredados con cláusula ? extends tipo
  * @author andoni.eguiluz @ ingenieria.deusto.es
+ * 
+ * En Java Tutorials: https://docs.oracle.com/javase/tutorial/extra/generics/morefun.html
  */
 public class ExtendsEnTipoGenerico {
 
@@ -43,20 +45,20 @@ public class ExtendsEnTipoGenerico {
 		recibeArray( arrayS );
 	}
 	
-	private static void recibe( Object o ) {
+	public static void recibe( Object o ) {
 		System.out.println( o );
 	}
 	
-	private static void recibeLista( List<Object> l ) {
+	public static void recibeLista( List<Object> l ) {
 		System.out.println( l );
 	}
 
-	private static void recibeListaHer( List<? extends Object> l ) {
+	public static void recibeListaHer( List<? extends Object> l ) {
 		System.out.println( l );
 	}
 	
-	private static void recibeArray( Object[] array ) {
+	public static void recibeArray( Object[] array ) {
 		System.out.println( Arrays.toString( array ) );
 	}
-
+	
 }

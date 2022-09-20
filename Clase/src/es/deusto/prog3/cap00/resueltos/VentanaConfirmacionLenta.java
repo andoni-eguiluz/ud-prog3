@@ -1,7 +1,7 @@
 package es.deusto.prog3.cap00.resueltos;
 
 import java.util.Random;
-
+import java.util.Set;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
@@ -28,6 +28,7 @@ public class VentanaConfirmacionLenta {
 	
 	public static void main(String[] args) {
 		// Configuración de ventana
+		verHilos( "INICIO" );
 		JFrame ventana = new JFrame();
 		ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE );
 		JTextField tfDato = new JTextField( "<Introduce aquí el nombre>", 50 );
@@ -45,14 +46,41 @@ public class VentanaConfirmacionLenta {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println( "botón" );
-				procesoConfirmar();
+				Thread t = new Thread() { // new Runnable() {
+					public void run() {
+						System.out.println( "Entrando" );
+						procesoConfirmar();
+						System.out.println( "Saliendo" );
+						bConfirmar.setEnabled( true );
+					}
+				};
+				t.setDaemon( true );
+				t.start();
+				bConfirmar.setEnabled( false );
 			}
 		} );
+		// Cierre
+		ventana.addWindowListener( new WindowAdapter() {
+			@Override
+			public void windowClosed(WindowEvent e) {
+				verHilos( "Cerrando ventana" );
+				// System.exit(0);
+			}
+		});
 		// Lanzamiento
 		ventana.setVisible( true );
 		System.out.println( "Fin" );
+		verHilos( "En fin de main" );
 	}
 
+	private static void verHilos( String mensaje ) {
+		System.out.println( mensaje );
+		Set<Thread> conjuntoHilos = Thread.getAllStackTraces().keySet();
+		for (Thread hilo : conjuntoHilos) {
+			System.out.println( "  " + hilo.getName() + " " + hilo.isDaemon() );
+		}
+	}
+	
 }
 
 class MiAccion implements ActionListener {

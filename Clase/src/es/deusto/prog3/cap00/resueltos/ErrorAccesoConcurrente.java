@@ -24,7 +24,6 @@ public class ErrorAccesoConcurrente {
 		JFrame f = new JFrame();
 		f.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE ); // EXIT - Sale del programa al cerrar la ventana (acabando los hilos)  (ojo que esto no es algo que se pueda hacer siempre)
 		f.setSize( 1000, 800 );
-		// f.setLocation( 2000, 0 );
 		taSalida.setEditable( false );
 		f.add( new JScrollPane( taSalida ) );
 		f.setVisible( true );

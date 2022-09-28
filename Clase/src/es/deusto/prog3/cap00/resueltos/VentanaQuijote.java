@@ -25,7 +25,6 @@ public class VentanaQuijote extends JFrame {
 		setTitle( "Don Quijote de la Mancha" );
 		setSize( 800, 600 );
 		setLocationRelativeTo( null );  // Pone la ventana relativa a la pantalla
-		setLocation( 2000, 100 );
 		taTexto = new JTextArea();
 		spTexto = new JScrollPane( taTexto );
 		add( spTexto, BorderLayout.CENTER );

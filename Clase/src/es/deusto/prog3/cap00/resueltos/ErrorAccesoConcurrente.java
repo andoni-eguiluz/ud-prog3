@@ -1,9 +1,6 @@
 package es.deusto.prog3.cap00.resueltos;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Vector;
+import java.util.*;
 
 import javax.swing.*;
 
@@ -13,19 +10,20 @@ import javax.swing.*;
  */
 public class ErrorAccesoConcurrente {
 
-	private static long CONPAUSA = 10; // msgs de pausa en los hilos
+	private static long CONPAUSA = 1; // msgs de pausa en los hilos
 	
 	private static JTextArea taSalida = new JTextArea();
 	// TODO
 	// Probar con esta estructura y ver que hay problemas:
-	private static Vector<Long> listaNums = new Vector<>();
+	// private static ArrayList<Long> listaNums = new ArrayList<>();
 	// TODO Sustituirla por una estructura synchronized
+	private static Vector<Long> listaNums = new Vector<>();
+	
 	public static void main(String[] args) {
 		// Ventana de salida
 		JFrame f = new JFrame();
-		f.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
+		f.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE ); // EXIT - Sale del programa al cerrar la ventana (acabando los hilos)  (ojo que esto no es algo que se pueda hacer siempre)
 		f.setSize( 1000, 800 );
-		f.setLocation( 2000, 100 );
 		// f.setLocation( 2000, 0 );
 		taSalida.setEditable( false );
 		f.add( new JScrollPane( taSalida ) );
@@ -36,10 +34,12 @@ public class ErrorAccesoConcurrente {
 		
 		// TODO Programa un hilo que solo va añadiendo números incrementales a la lista por el final
 		// Haz que el hilo visualice en la ventana lo que va haciendo y espere un poquito en cada iteración:
+		// println( "Añadido: " + listaNums.toString() );
+		// if (CONPAUSA>0) try { Thread.sleep(CONPAUSA); } catch (InterruptedException ex) {}
 		Thread hilo1 = new Thread() {
 			public void run() {
 				long numero = 0;
-				while(true) {
+				while (true) {
 					numero++;
 					listaNums.add( numero );
 					println( "Añadido: " + listaNums.toString() );
@@ -55,10 +55,10 @@ public class ErrorAccesoConcurrente {
 		// if (CONPAUSA>0) try { Thread.sleep(CONPAUSA); } catch (InterruptedException ex) {}
 		Thread hilo2 = new Thread() {
 			public void run() {
-				while(true) {
-					if (listaNums.size()>0) {
-						long primero = listaNums.remove( 0 );
-						println( "Borrado: " + primero );
+				while (true) {
+					if (!listaNums.isEmpty()) {
+						long primero = listaNums.remove(0);
+						println( "Eliminado: " + primero );
 					}
 					if (CONPAUSA>0) try { Thread.sleep(CONPAUSA); } catch (InterruptedException ex) {}
 				}
@@ -73,17 +73,16 @@ public class ErrorAccesoConcurrente {
 
 	// Método auxiliar para sacar información en la ventana
 	// Lo hacemos syncrhonized para que no haya interferencia entre los hilos a la hora de visualizar
-	// probar que si se quita el synchronized hay problemas)
-	private static synchronized void println( String mens ) { 
+	// probar que si se quita el synchronized hay problemas - no los hay si se hace respetando el thread-unsafe de Swing con invokeLater)
+	private static synchronized void println( String mens ) {
 		taSalida.append( mens + "\n" );
-		taSalida.setSelectionStart( taSalida.getText().length() );
-		taSalida.setSelectionEnd( taSalida.getText().length() );
+		taSalida.setSelectionStart( taSalida.getText().length() );  // Para ir viendo el texto último añadido (scroll al último punto del texto)
 		if (taSalida.getText().length()>100000) {  // Para que no se llene la textarea vamos quitando de vez en cuando
 			taSalida.replaceRange( "", 0, 50000 );
 		}
-		// Aunque en este caso no va a haber problema, sería más correcto hacer esto para respetar a Swing (que no es Thread-safe):
+		// Aunque si se hace synchronized no va a haber problema, sería más correcto hacer esto para respetar a Swing (que no es Thread-safe):
 		// try {
-		// 	SwingUtilities.invokeAndWait( new Runnable() {
+		//  	SwingUtilities.invokeAndWait( new Runnable() {  // Se podría hacer invokeLater pero con pausa 0 Swing no puede seguir a los hilos que generan texto a toda velocidad
 		// 		@Override
 		// 		public void run() {
 		// 			taSalida.append( mens + "\n" );

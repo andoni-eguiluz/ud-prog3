@@ -12,7 +12,10 @@ public class UtilsString {
 	 * @return	Mismo string sustituyendo \t con el carácter | y \n con el carácter #; Devuelve null si s es null.
 	 */
 	public static String quitarTabsYSaltosLinea( String s ) {
-		return s.replaceAll( "\n", "|" ).replaceAll( "\t", "|" );
+		if (s==null) {
+			return null;
+		}
+		return s.replaceAll( "\n", "#" ).replaceAll( "\t", "|" );
 	}
 	
 	/** Devuelve cualquier string truncado al número de caracteres indicado, con puntos suspensivos al final si se ha truncado
@@ -60,5 +63,42 @@ public class UtilsString {
 		// System.out.println( wrapString( quitarTabsYSaltosLinea(prueba), 10 ) );
 
 	}
+	
+	// TODO Habría que elegir solo una de las dos cabeceras siguientes
 
+	// Opción 1 de definición: más genérica y sin detalles de implementación (recomendable desde el punto de vista del diseño)
+	
+	/** Convierte un string castellano a otro string ordenable sin problemas,
+	 * de modo que al comparar los strings devueltos las palabras originales puedan ser comparadas bien con el método #compareTo.
+	 * Por ejemplo "caña" sería > que "cano" pero sería también > que "capa" erróneamente,
+	 *  al convertirlos convierteAOrdenable("CANO") < convierteAOrdenable("CANZZA") < convierteAOrdenable("CAPA") 
+	 * Por ejemplo "panza" < "papá" < "pañal", sin embargo convertidas se ordenan bien: 
+	 *  convierteAOrdenable("PANZA") < convierteAOrdenable("PANZZAL") < convierteAOrdenable("PAPA")
+	 * @param original	String original
+	 * @return	String convertido a uno equivalente, listo para ordenar por comparación directa
+	 */
+	
+	// Opción 2 de definición: directa a la implementación (preferible si vamos a utilizarla para otras cosas que no sea solo comparar)
+	//   (en ese caso quizás su nombre sería mejor pasaMayusculasSinTildesNiEnyes() que el que tiene)
+	
+	/** Convierte un string castellano a otro string ordenable sin problemas con #compareTo,
+	 *  sustituyendo las minúsculas por mayúsculas, eliminando tildes, diéresis, y sustituyendo las "Ñ" por "NZZ" 
+	 * Por ejemplo "caña" sería > que "cano" pero sería también > que "capa" erróneamente, al convertirlos "CANO" < "CANZZA" < "CAPA" 
+	 * Por ejemplo "panza" < "papá" < "pañal", sin embargo convertidas se ordenan bien: "PANZA" < "PANZZAL" < "PAPA"
+	 * @param original	String original
+	 * @return	String convertido a uno equivalente, listo para ordenar por comparación directa
+	 */
+	public static String convierteAOrdenable( String original ) {
+		String ret = original.toUpperCase();
+		// Podría hacerse directo
+		// ret = ret.replaceAll("É", "E").replaceAll("Á", "A").replaceAll("Í", "I").replaceAll("Ó", "O").replaceAll("Ú", "U");  ... etc.
+		// Pero lo hacemos con dos arrays de conversión, más legible y mantenible para cambios futuros
+		String[] queCambio = { "Á", "É", "Í", "Ó", "Ú", "Ü", "Ñ" };
+		String[] aQue = {      "A", "E", "I", "O", "U", "U", "NZZ" };
+		for (int i=0; i<queCambio.length; i++) {
+			ret = ret.replaceAll( queCambio[i], aQue[i] );
+		}
+		return ret;
+	}
+	
 }

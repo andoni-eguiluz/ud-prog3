@@ -7,11 +7,11 @@ package es.deusto.prog3.cap01.resueltos;
  */
 public class ConceptoCompStrings {
 	public static void main(String[] args) {
-		System.out.println( "panza".compareTo( "papa" ) );
-		System.out.println( "panza".compareTo( "Papa" ) );
-		System.out.println( "pánza".compareTo( "papa" ) );
-		System.out.println( "panza".compareTo( "pañal" ) );
-		System.out.println( "pañal".compareTo( "papa" ) );
-		System.out.println( "panzzal".compareTo( "papa" ) );
+		System.out.println( "panza".compareTo( "papa" ) );   // Negativo: alfabéticamente bien comparado
+		System.out.println( "panza".compareTo( "Papa" ) );   // Positivo: mal
+		System.out.println( "pánza".compareTo( "papa" ) );   // Positivo: mal
+		System.out.println( "panza".compareTo( "pañal" ) );  // Negativo: bien
+		System.out.println( "pañal".compareTo( "papa" ) );   // Positivo: mal
+		System.out.println( "panzzal".compareTo( "papa" ) ); // Negativo: bien
 	}
 }

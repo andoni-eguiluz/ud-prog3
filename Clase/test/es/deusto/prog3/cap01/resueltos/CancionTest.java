@@ -95,7 +95,6 @@ public class CancionTest {
 	@Test
 	public void testGetVentanaCancion() {
 		JFrame v = cancion2.getVentanaCancion();
-		v.setLocation( 2000, 0 );
 		v.setVisible( true );
 		// Título
 		assertEquals( "Ventana canción", v.getTitle() );
@@ -113,7 +112,43 @@ public class CancionTest {
 			e.printStackTrace();
 		} 
 		assertEquals( "Nombre nuevo", cancion2.getNombre() );
-		try { Thread.sleep( 5000 ); } catch (InterruptedException e) {}
+		
+		// Cambio de nombre en ventana
+		cancion2.tfNombre.setText( "Nuevo nombre" );
+		cancion2.tfNombre.requestFocus();
+		try {
+			Robot robot = new Robot();
+			robot.keyPress( KeyEvent.VK_ENTER );
+			robot.keyRelease( KeyEvent.VK_ENTER );
+		} catch (AWTException e) {
+			fail( "Error en simulación de teclado" );
+		}
+		try {  // Pausita
+			Thread.sleep( 500 );
+		} catch (InterruptedException e) {}
+		assertEquals( "Nuevo nombre", cancion2.getNombre() );
+
+		// Barra de progreso
+		try {
+			cancion2.setDuracionEnSegundos( 10 );
+			// Simulación de botón
+			cancion2.bSimular.doClick();
+			// Pausita hasta mitad de simulación
+			try { Thread.sleep( 5001 ); } catch (InterruptedException e) {}
+			assertEquals( 5, cancion2.pbDuracion.getValue(), 1.0 ); // Más o menos a la mitad
+			// Pausita al final de la simulación
+			try { Thread.sleep( 5001 ); } catch (InterruptedException e) {}
+			assertEquals( 10, cancion2.pbDuracion.getValue() ); // Al final
+			// TODO ¿Por qué no funciona este test?  Hay que corregir el error en la clase  :-)
+		} catch (CancionException e1) {
+			fail( "Error en duración" );
+		}
+		
+		// Pausita antes del cierre
+		try { Thread.sleep( 1000 ); } catch (InterruptedException e) {}
+		// Cierre
+		v.dispose();
+		
 	}
 	
 

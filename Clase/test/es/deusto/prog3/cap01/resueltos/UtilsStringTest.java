@@ -111,6 +111,7 @@ public class UtilsStringTest {
 		assertTrue( conv1.compareTo( conv3 ) < 0 );
 	}
 	
+	@Test
 	public void convierteAOrdenableTildes() {
 		// Opción 1 - Según la lógica que queremos que tenga el método 
 		String conv1 = UtilsString.convierteAOrdenable( "pánza" );
@@ -127,6 +128,7 @@ public class UtilsStringTest {
 		//  más general posible y que oculte todo lo posible la implementación
 	}
 	
+	@Test
 	public void convierteAOrdenableEnyes() {
 		String conv1 = UtilsString.convierteAOrdenable( "panza" );
 		String conv2 = UtilsString.convierteAOrdenable( "pañal" );

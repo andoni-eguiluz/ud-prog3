@@ -89,7 +89,8 @@ public class UtilsString {
 	 * @return	String convertido a uno equivalente, listo para ordenar por comparación directa
 	 */
 	public static String convierteAOrdenable( String original ) {
-		String ret = original.toUpperCase();
+		String ret = original;
+		ret = original.toUpperCase();
 		// Podría hacerse directo
 		// ret = ret.replaceAll("É", "E").replaceAll("Á", "A").replaceAll("Í", "I").replaceAll("Ó", "O").replaceAll("Ú", "U");  ... etc.
 		// Pero lo hacemos con dos arrays de conversión, más legible y mantenible para cambios futuros

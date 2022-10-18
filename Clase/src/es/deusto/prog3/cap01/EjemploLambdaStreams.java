@@ -52,10 +52,10 @@ public class EjemploLambdaStreams {
 			l1.stream()
 				.filter( (i) -> { return (i>=0); } )  // a)
 				.filter( (i) -> { if (i<=ultimoCreciente) return false; ultimoCreciente = i; return true; } );  // b)
-		ArrayList<Integer> crecientes = stream.collect( Collectors.toCollection( ArrayList::new ) );
-		crecientes.stream().forEach( (i) -> { System.out.print( i + " " ); } );
+		ArrayList<Integer> crecientes = stream.collect( Collectors.toCollection( ArrayList::new ) );  // Volcar a estructura final
+		crecientes.stream().forEach( (i) -> { System.out.print( i + " " ); } ); // c) Visualización  (uso 1 estructura final)
 		System.out.println(  );
-		return 1.0 * crecientes.stream().reduce( 0, (suma, i) -> { return suma + i; } ) / crecientes.stream().count();
+		return 1.0 * crecientes.stream().reduce( 0, (suma, i) -> { return suma + i; } ) / crecientes.stream().count();  // d) Media (uso 2 estructura final)
 	}
 	
 }

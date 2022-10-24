@@ -13,7 +13,7 @@ public class TestConexionBDMySql {
 
     public static void main(String[] args) {
         String host = "h1.host.filess.io";       // TODO Aquí el host que aloja la bd mysql
-        String puerto = "3306";
+        String puerto = "3307";
         String baseDatos = "test_xxxxxxxxx";     // TODO Aquí el nombre de base de datos
         String username = "user_test_xxxxxxx";   // TODO Aquí el nombre de usuario
         String password = "xxxxxxxxxxxxx";       // Aquí la password

@@ -78,11 +78,48 @@ public class MiniPracticaBD {
 		p.add( bBorrar );
 		JButton bModificar = new JButton( "Modificar password" );
 		p.add( bModificar );
+		JButton bBuscar = new JButton( "Buscar por nick" );
+		bBuscar.setToolTipText( "Pulsa para buscar un nick concreto, el que se teclea en el campo Nick" );
+		p.add( bBuscar );
+		JButton bVolcar = new JButton( "Volcado consola" );
+		p.add( bVolcar );
 		pSuperior.add( p, BorderLayout.SOUTH );
 		ventana.add( pSuperior, BorderLayout.NORTH );  // Panel de datos al norte
 		ventana.add( new JScrollPane( tUsuarios ), BorderLayout.CENTER );  // JTable al center
 		ventana.pack();
 		ventana.setVisible( true );
+		bVolcar.addActionListener( (e) -> {
+			String com = "select * from Usuario";
+			try {
+				logger.log( Level.INFO, "BD: " + com );
+				rs = s.executeQuery( com );
+				System.out.println( "Listado de usuarios actuales en BD:" );
+				while (rs.next()) {
+					String nick = rs.getString( "nick" );
+					String pass = rs.getString( "pass" );
+					System.out.println( nick + "\t" + pass );
+				}
+			} catch (SQLException e2) {
+				System.out.println( "Último comando: " + com );
+				e2.printStackTrace();
+			}
+		});
+		bBuscar.addActionListener( (e) -> {
+			// BD - select nick from Usuario where nick = 'valor'
+			String sent = "select nick from Usuario where nick = '" + secu(tfUsuario.getText()) + "'";
+			logger.log( Level.INFO, "BD: " + sent );
+			try {
+				ResultSet rs = s.executeQuery(sent);
+				if (rs.next()) {
+					JOptionPane.showMessageDialog( ventana, "El usuario " + tfUsuario.getText() + " existe!" );
+				} else {
+					JOptionPane.showMessageDialog( ventana, "El usuario no existe" );
+				}
+			} catch (SQLException e1) {
+				System.out.println( "Último comando: " + sent );
+				e1.printStackTrace();
+			}
+		});
 		bModificar.addActionListener( (e) -> {
 			// update Usuario set pass = valor where nick = nick
 			String sent = "update Usuario set pass = '" + secu(tfPassword.getText()) + "' where nick = '" + secu(tfUsuario.getText()) + "'";

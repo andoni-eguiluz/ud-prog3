@@ -12,6 +12,8 @@ public class EjemploRenderersYEditors {
 		JFrame ventana = new JFrame( "Ejemplo de comprensión de renderers/editors" );
 		ventana.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
 		ventana.setSize( 800, 600 );
+		JComboBox<String> cb = new JComboBox<>( new String[] { "Admins", "Gestores", "Usuarios" } );
+		ventana.add( cb, BorderLayout.NORTH );
 		JList<Usuario> listaUsuarios = new JList<>( 
 			new Usuario[] {
 				new Usuario( 1, "Olatz" ),
@@ -21,8 +23,6 @@ public class EjemploRenderersYEditors {
 				new Usuario( 5, "Marian" )
 			}
 		);
-		JComboBox<String> cb = new JComboBox<>( new String[] { "Admins", "Gestores", "Usuarios" } );
-		ventana.add( cb, BorderLayout.NORTH );
 		ventana.add( new JScrollPane( listaUsuarios ), BorderLayout.WEST );
 		Object[] columns = { "Val 1", "Val 2", "Val 3", "Val 4" };
 		Object[][] datos = new Object[13][4];

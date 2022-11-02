@@ -1,4 +1,4 @@
-package es.deusto.prog3.cap06.resueltos;
+package es.deusto.prog3.cap06.ejercicios;
 
 import java.awt.*;
 import javax.swing.*;

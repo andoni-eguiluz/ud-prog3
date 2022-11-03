@@ -2,6 +2,7 @@ package es.deusto.prog3.cap06.resueltos;
 
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.table.TableCellRenderer;
 
 /** Clase de ejemplo para entender el concepto de renderers y editors
  * @author andoni.eguiluz @ ingenieria.deusto.es
@@ -11,6 +12,7 @@ public class EjemploRenderersYEditors {
 	public static void main(String[] args) {
 		JFrame ventana = new JFrame( "Ejemplo de comprensión de renderers/editors" );
 		ventana.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
+		ventana.setLocation( 2000, 0 ); // TODO quitar si solo hay una pantalla
 		ventana.setSize( 800, 600 );
 		JComboBox<String> cb = new JComboBox<>( new String[] { "Admins", "Gestores", "Usuarios" } );
 		ventana.add( cb, BorderLayout.NORTH );
@@ -33,6 +35,49 @@ public class EjemploRenderersYEditors {
 		}
 		JTable tabla = new JTable( datos, columns );
 		ventana.add( new JScrollPane( tabla ), BorderLayout.CENTER );
+
+		cb.setRenderer( new ListCellRenderer<String>() {
+			@Override
+			public Component getListCellRendererComponent(JList<? extends String> list, String value, int index,
+					boolean isSelected, boolean cellHasFocus) {
+				System.out.println( value + " - " + index );
+				JLabel etiqueta = new JLabel( value );
+				etiqueta.setOpaque( true );
+				if (isSelected || cellHasFocus) {
+					JButton boton = new JButton( value );
+					return boton;
+					// JCheckBox check = new JCheckBox( value );
+					// return check;
+				} else {
+					etiqueta.setBackground( Color.white );
+				}
+				return etiqueta;
+			}
+		});
+		
+		listaUsuarios.setCellRenderer( new DefaultListCellRenderer() {
+			@Override
+			public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected,
+					boolean cellHasFocus) {
+				Component c = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+				// System.out.println( c.getClass().getSuperclass().getSuperclass() );
+				JLabel l = (JLabel) c;  // Siempre es un JLabel
+				l.setFont( new Font( "Arial", Font.PLAIN, 18 ) );
+				if (index % 2 ==0) {
+					l.setBackground( Color.yellow );
+				}
+				return c;
+			}
+		});
+		
+		tabla.setDefaultRenderer( Object.class, new TableCellRenderer() {
+			@Override
+			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+					boolean hasFocus, int row, int column) {
+				// TODO probar a renderizar cosas diferentes en la tabla
+				return null;
+			}
+		});
 		
 		ventana.setVisible( true );
 	}

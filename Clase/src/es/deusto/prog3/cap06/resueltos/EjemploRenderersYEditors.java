@@ -2,6 +2,7 @@ package es.deusto.prog3.cap06.resueltos;
 
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 
 /** Clase de ejemplo para entender el concepto de renderers y editors
@@ -9,10 +10,10 @@ import javax.swing.table.TableCellRenderer;
  */
 public class EjemploRenderersYEditors {
 
+	@SuppressWarnings("serial")
 	public static void main(String[] args) {
 		JFrame ventana = new JFrame( "Ejemplo de comprensión de renderers/editors" );
 		ventana.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
-		ventana.setLocation( 2000, 0 ); // TODO quitar si solo hay una pantalla
 		ventana.setSize( 800, 600 );
 		JComboBox<String> cb = new JComboBox<>( new String[] { "Admins", "Gestores", "Usuarios" } );
 		ventana.add( cb, BorderLayout.NORTH );
@@ -67,15 +68,6 @@ public class EjemploRenderersYEditors {
 					l.setBackground( Color.yellow );
 				}
 				return c;
-			}
-		});
-		
-		tabla.setDefaultRenderer( Object.class, new TableCellRenderer() {
-			@Override
-			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
-					boolean hasFocus, int row, int column) {
-				// TODO probar a renderizar cosas diferentes en la tabla
-				return null;
 			}
 		});
 		

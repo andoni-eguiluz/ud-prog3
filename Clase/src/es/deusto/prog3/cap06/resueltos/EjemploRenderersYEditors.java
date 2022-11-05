@@ -45,7 +45,7 @@ public class EjemploRenderersYEditors {
 				JLabel etiqueta = new JLabel( value );
 				etiqueta.setOpaque( true );
 				if (isSelected || cellHasFocus) {
-					JButton boton = new JButton( value );
+					JButton boton = new JButton( value );  // Se pueden poner componentes interactivos pero OJO solo se usan para dibujar
 					return boton;
 					// JCheckBox check = new JCheckBox( value );
 					// return check;
@@ -70,6 +70,66 @@ public class EjemploRenderersYEditors {
 				return c;
 			}
 		});
+		
+		tabla.setRowHeight( 100 ); // Cambiar la altura de las filas
+		tabla.setCellSelectionEnabled( true );  // Selección solo de celda
+		tabla.setDefaultRenderer( Object.class, new DefaultTableCellRenderer() {
+			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+				Component ret = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+				// System.out.println( ret.getClass().getSuperclass().getSuperclass() );
+				JLabel l = (JLabel) ret;
+				l.setIcon( null ); // (**) Esto para evitar que se dupliquen los icons de la línea de abajo
+				// El cambio de tamaño del componente renderer no afecta a la celda (el tamaño de la celda lo determina la tabla, no el renderer que dibuja en el espacio que tiene)
+				// l.setMinimumSize( new Dimension( 200, 150 ) );  // No afecta
+				// l.setPreferredSize( new Dimension( 200, 150 ) );  // No afecta
+				// l.setSize( new Dimension( 200, 150 ) );  // No afecta
+				l.setHorizontalAlignment( JLabel.CENTER );
+				l.setFont( new Font( "Arial", Font.PLAIN, 40 ) );
+				if ( (row + column)%2==0 ) {
+					l.setForeground( Color.BLUE );
+				}
+				else {
+					l.setForeground( Color.BLACK );
+				}
+				if (value instanceof Integer) {
+					int valor = (Integer) value;
+					if (valor <= 150) {
+						l.setBackground( Color.RED );
+					} else {
+						// Obsérvese qué pasa si no hay else
+						l.setBackground( Color.WHITE );
+					}
+					if (valor > 900) {
+						// Para dibujar distinto hay que cambiar el dibujado del componente: no nos vale el JLabel normal
+						JLabel lCambiada = new JLabel( value.toString() ) {
+							protected void paintComponent(Graphics g) {
+								if (isSelected) {
+									g.setColor( Color.LIGHT_GRAY );
+								} else {
+									g.setColor( Color.WHITE );
+								}
+								g.fillRect( 0,  0,  getWidth(),  getHeight() );
+								ImageIcon img = new ImageIcon( EjemploRenderersYEditors.class.getResource( "world.png" ) );
+								g.drawImage( img.getImage(), 0, 0, getWidth(), getHeight(), null );
+								super.paintComponent( g );
+							}
+						};
+						lCambiada.setHorizontalAlignment( JLabel.CENTER );
+						lCambiada.setFont( new Font( "Arial", Font.PLAIN, 40 ) );
+						lCambiada.setForeground( Color.MAGENTA );
+						return lCambiada;
+					} else if (valor > 800) {
+						l.setIcon( new ImageIcon( EjemploRenderersYEditors.class.getResource( "world2.png" ) ) );
+						// Obsérvese qué pasa si no hacemos la línea (**) de arriba
+					}
+				}
+				if (isSelected) {
+					l.setBackground( Color.LIGHT_GRAY );
+				}
+				return l;
+			}
+		} );
+
 		
 		ventana.setVisible( true );
 	}

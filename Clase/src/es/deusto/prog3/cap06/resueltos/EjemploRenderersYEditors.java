@@ -1,6 +1,8 @@
 package es.deusto.prog3.cap06.resueltos;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.EventObject;
 
@@ -18,12 +20,15 @@ import javax.swing.table.TableModel;
  */
 public class EjemploRenderersYEditors {
 
+	private static int filaEnClick = -1;
+	private static int colEnClick = -1;
+	
 	@SuppressWarnings("serial")
 	public static void main(String[] args) {
 		JFrame ventana = new JFrame( "Ejemplo de comprensión de renderers/editors" );
 		ventana.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
 		ventana.setSize( 800, 600 );
-		// ventana.setLocation( 2000, 0 );
+ventana.setLocation( 2000, 0 );
 		JComboBox<String> cb = new JComboBox<>( new String[] { "Admins", "Gestores", "Usuarios" } );
 		ventana.add( cb, BorderLayout.NORTH );
 		JList<Usuario> listaUsuarios = new JList<>( 
@@ -137,6 +142,9 @@ public class EjemploRenderersYEditors {
 				}
 				if (isSelected) {
 					l.setBackground( Color.LIGHT_GRAY );
+				}
+				if (row == filaEnClick && column == colEnClick) {
+					l.setForeground( Color.GREEN );
 				}
 				return l;
 			}
@@ -293,7 +301,31 @@ public class EjemploRenderersYEditors {
 		};
 		tabla.setModel( modelo );
 
-		
+		tabla.addMouseListener( new MouseListener() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				System.out.println( "MReleased en " + e );
+			}
+			@Override
+			public void mousePressed(MouseEvent e) {
+				System.out.println( "MPressed en " + e );
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				System.out.println( "MExited en " + e );
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				System.out.println( "MEntered en " + e );
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.out.println( "MClicked en " + e );
+				filaEnClick = tabla.rowAtPoint( e.getPoint() );
+				colEnClick = tabla.columnAtPoint( e.getPoint() );
+				System.out.println( "Click en tabla fila,columna = " + filaEnClick + "," + colEnClick );
+			}
+		});
 		
 		ventana.setVisible( true );
 	}

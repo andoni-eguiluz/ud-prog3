@@ -99,7 +99,7 @@ public class EjemploRenderersYEditors {
 					l.setForeground( Color.BLUE );
 				}
 				else {
-				//	l.setForeground( Color.BLACK );
+					l.setForeground( Color.BLACK );
 				}
 				if (value instanceof Integer) {
 					int valor = (Integer) value;
@@ -149,6 +149,7 @@ public class EjemploRenderersYEditors {
 		
 		tabla.setDefaultEditor( Object.class, new TableCellEditor() {
 			private ArrayList<CellEditorListener> lCEL = new ArrayList<>();
+			
 			@Override
 			public boolean isCellEditable(EventObject anEvent) {
 				return true;
@@ -180,7 +181,9 @@ public class EjemploRenderersYEditors {
 			@Override
 			public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
 				tf = new JTextField( value.toString() );
-				tf.setFont( new Font( "Arial", Font.PLAIN, 48 ) );
+				tf.setFont( new Font( "Arial", Font.PLAIN, 40 ) );
+				tf.setForeground( Color.GRAY );
+				tf.setHorizontalAlignment( JTextField.CENTER );
 				return tf;
 			}
 			@Override

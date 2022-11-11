@@ -28,7 +28,7 @@ public class EjemploRenderersYEditors {
 		JFrame ventana = new JFrame( "Ejemplo de comprensión de renderers/editors" );
 		ventana.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
 		ventana.setSize( 800, 600 );
-ventana.setLocation( 2000, 0 );
+		// ventana.setLocation( 2000, 0 );
 		JComboBox<String> cb = new JComboBox<>( new String[] { "Admins", "Gestores", "Usuarios" } );
 		ventana.add( cb, BorderLayout.NORTH );
 		JList<Usuario> listaUsuarios = new JList<>( 

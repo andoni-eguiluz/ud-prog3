@@ -1,6 +1,7 @@
 package es.deusto.prog3.cap06.resueltos;
 
 import java.awt.*;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class EjemploRenderersYEditors {
 		JFrame ventana = new JFrame( "Ejemplo de comprensión de renderers/editors" );
 		ventana.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
 		ventana.setSize( 800, 600 );
-		// ventana.setLocation( 2000, 0 );
+		ventana.setLocation( 2000, 0 );  // TODO quitar si solo se tiene una ventana
 		JComboBox<String> cb = new JComboBox<>( new String[] { "Admins", "Gestores", "Usuarios" } );
 		ventana.add( cb, BorderLayout.NORTH );
 		JList<Usuario> listaUsuarios = new JList<>( 
@@ -270,8 +271,42 @@ public class EjemploRenderersYEditors {
 				// En resumen, es más cómodo repintar toda la tabla aunque más eficiente refrescar solo
 				// las celdas que cambian
 			}
+			
 		});
 
+		// Tarea intercambio
+		MouseAdapter ma = new MouseAdapter() {  // MouseAdapter implementa tanto ML como MML
+			int filaPul;
+			int colPul;
+			@Override
+			public void mousePressed(MouseEvent e) {
+				filaPul = tabla.rowAtPoint( e.getPoint() );
+				colPul = tabla.columnAtPoint( e.getPoint() );
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				int filaSuel = tabla.rowAtPoint( e.getPoint() );
+				int colSuel = tabla.columnAtPoint( e.getPoint() );
+				// Trabajo del intercambio
+				if (colPul == 2 && colSuel == 2 && filaSuel!=filaPul) {
+					Object temporal = modelo.getValueAt(filaSuel, colSuel);
+					modelo.setValueAt( modelo.getValueAt(filaPul, colPul), filaSuel, colSuel);
+					modelo.setValueAt( temporal, filaPul, colPul );
+					tabla.repaint();
+				}
+			}
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				System.out.println( "Drag: " + e.getPoint() );
+			}
+		};
+		tabla.addMouseListener( ma );
+		tabla.addMouseMotionListener( ma );
+		
+		// MouseAdapter -> Mouse + MouseMotion (moved, dragged)
+		
+		// Tarea tecla supr
+		
 		
 		
 		ventana.setVisible( true );

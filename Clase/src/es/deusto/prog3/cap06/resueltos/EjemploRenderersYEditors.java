@@ -31,7 +31,7 @@ public class EjemploRenderersYEditors {
 		JFrame ventana = new JFrame( "Ejemplo de comprensión de renderers/editors" );
 		ventana.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
 		ventana.setSize( 800, 600 );
-		ventana.setLocation( 2000, 0 );  // TODO quitar si solo se tiene una ventana
+		// ventana.setLocation( 2000, 0 );  // TODO quitar si solo se tiene una ventana
 		JComboBox<String> cb = new JComboBox<>( new String[] { "Admins", "Gestores", "Usuarios" } );
 		ventana.add( cb, BorderLayout.NORTH );
 		JList<Usuario> listaUsuarios = new JList<>( 
@@ -295,16 +295,17 @@ public class EjemploRenderersYEditors {
 					tabla.repaint();
 				}
 			}
+			// MouseAdapter -> Mouse + MouseMotion (moved, dragged)
 			@Override
 			public void mouseDragged(MouseEvent e) {
 				System.out.println( "Drag: " + e.getPoint() );
+				// TODO hacer aquí lo que se quiera con el drag - por ejemplo que se pinte 
+				// encima de la tabla la celda que se está moviendo
 			}
 		};
 		tabla.addMouseListener( ma );
 		tabla.addMouseMotionListener( ma );
-		
-		// MouseAdapter -> Mouse + MouseMotion (moved, dragged)
-		
+				
 		// Tarea tecla supr
 		
 		

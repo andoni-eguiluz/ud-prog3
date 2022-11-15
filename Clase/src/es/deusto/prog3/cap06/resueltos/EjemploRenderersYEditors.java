@@ -1,6 +1,8 @@
 package es.deusto.prog3.cap06.resueltos;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -31,7 +33,7 @@ public class EjemploRenderersYEditors {
 		JFrame ventana = new JFrame( "Ejemplo de comprensión de renderers/editors" );
 		ventana.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
 		ventana.setSize( 800, 600 );
-		// ventana.setLocation( 2000, 0 );  // TODO quitar si solo se tiene una ventana
+		ventana.setLocation( 2000, 0 );  // TODO quitar si solo se tiene una ventana
 		JComboBox<String> cb = new JComboBox<>( new String[] { "Admins", "Gestores", "Usuarios" } );
 		ventana.add( cb, BorderLayout.NORTH );
 		JList<Usuario> listaUsuarios = new JList<>( 
@@ -150,6 +152,16 @@ public class EjemploRenderersYEditors {
 				// Comunicación entre el renderer y el mouselistener
 				if (row == filaEnClick && column == colEnClick) {
 					l.setForeground( Color.GREEN );
+				}
+				
+				// Prueba posterior: añadir un color para las filas con false en la columna 3
+				// System.out.println( "VALOR DE COL 3 en fila " + row + " = " + tabla.getModel().getValueAt( row, 3 ) );
+				Object valorCol3 = tabla.getModel().getValueAt( row, 3 );
+				if (valorCol3 instanceof Boolean) {
+					Boolean valorBool = (Boolean) valorCol3;
+					if (!valorBool) {
+						l.setBackground( Color.YELLOW );
+					}
 				}
 				return l;
 			}
@@ -307,7 +319,40 @@ public class EjemploRenderersYEditors {
 		tabla.addMouseMotionListener( ma );
 				
 		// Tarea tecla supr
-		
+		KeyListener kl = new KeyListener() {
+			private boolean ctrlPulsado = false;
+			private final int COD_SUPR = 127;
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// System.out.println( "Typed " + e );
+			}
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// System.out.println( "Released " + e );
+				if (e.getKeyCode()==KeyEvent.VK_DELETE) { // No tiene sentido && e.getKeyCode()==KeyEvent.VK_CONTROL) {
+					System.out.println( "Pulsada DEL");
+					// e.isControlDown() - se puede usar en lugar del booleano
+					if (tabla.getSelectedColumn() == 2 && ctrlPulsado) {
+						int fila = tabla.getSelectedRow();
+						int col = tabla.getSelectedColumn();
+						modelo.setValueAt( "", fila, col);
+						tabla.repaint();
+					}
+				} else if (e.getKeyCode()==KeyEvent.VK_CONTROL) {
+					ctrlPulsado = false;
+				}
+			}
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// System.out.println( "Pressed " + e );
+				if (e.getKeyCode()==KeyEvent.VK_CONTROL) {
+					ctrlPulsado = true;
+				}
+			}
+		};
+		tabla.addKeyListener( kl );
+		// cb.addKeyListener( kl );
+		// listaUsuarios.addKeyListener( kl );
 		
 		
 		ventana.setVisible( true );

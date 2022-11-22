@@ -18,12 +18,12 @@ public class PruebasRecursividad {
 		// System.out.println( stringSinVocales( "Hola soy un string con vocales" ) );
 		// System.out.println( stringSinVocales2Rec( "Hola soy un string con vocales", 0 ) );
 		// System.out.println( invertirString( "Hola soy un string al derecho" ) );
+		// System.out.println( "Dobleces para luna:" );
 		// doblecesLuna( 0.0001, 384400000.0, 0 );
 		// Recursividad múltiple:
 		// System.out.println( fib(11) );
 		// System.out.println( "Número de sumas:" + contF );
 		// System.out.println( "Número de llamadas:" + llF );
-		// System.out.println( "Dobleces para luna:" );
 		// Divide y vencerás:
 		// int[] v = { 1, 2, 3, 7, 9, 11, 12, 14, 17, 18, 21 };
 		// System.out.println( busquedaBinaria( 19, v ) );

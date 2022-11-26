@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -45,6 +47,8 @@ public class VisualDeRecursividad {
 				JPanel pBotonera = new JPanel();
 				JButton bPausa = new JButton( "Pausa" );
 				pBotonera.add( bPausa );
+				JButton bPasoAPaso = new JButton( "1 Paso" );
+				pBotonera.add( bPasoAPaso );
 				getContentPane().add( pBotonera, BorderLayout.SOUTH );
 				bPausa.addActionListener( new ActionListener() {
 					@Override
@@ -56,10 +60,25 @@ public class VisualDeRecursividad {
 						} else {  // Estaba pausado - lo quitamos
 							b.setText( "Pausa" );
 							enPausa = false;
+							unPaso = false;
 						}
 					}
 				});
+				bPasoAPaso.addActionListener( new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						enPausa = true;
+						unPaso = true;
+					}
+				});
 			}
+			addWindowListener( new WindowAdapter() {
+				@Override
+				public void windowClosed(WindowEvent e) {
+					enPausa = false;
+					unPaso = false;
+				}
+			});
 		}
 	}
 	
@@ -69,6 +88,7 @@ public class VisualDeRecursividad {
 	private DefaultTreeModel modeloArbol;
 	private Ventana ventana;
 	private boolean enPausa;
+	private boolean unPaso;
 	
 	/** Construye un nuevo árbol de representación de funciones o llamadas, que incluye una ventana de representación y la muestra en pantalla
 	 * @param textoNodoRaiz	Texto del nodo principal
@@ -108,7 +128,13 @@ public class VisualDeRecursividad {
 		modeloArbol.nodeChanged(nodo); // Lanza evento de modificación en el modelo
 	}
 
-	public boolean isPaused() { return enPausa; }
+	public boolean isPaused() { 
+		if (unPaso) {
+			unPaso = false;
+			return false;  // La siguiente vez se devolverá true
+		}
+		return enPausa; 
+	}
 	
 	//
 	// Métodos para pruebas de representación en árbol

@@ -10,8 +10,26 @@ public class PruebasDeRecursividad {
 		// f( varPrueba );
 		// conteo( 1 );
 		// System.out.println( factorial( 16 ) );
-		System.out.println( fib(45) );
-		System.out.println( numLlamadas );
+		// System.out.println( fib(45) );
+		// System.out.println( numLlamadas );
+		combinacionesAyB( "", 5 );
+	}
+	
+	
+	
+	// Generar combinaciones de 5 letras de A y B:
+	// Caso recursivo:
+	//   Empezando en A concatenarla a la generación de combinaciones de 4 letras de A y B
+	//   Empezando en B    "  "  " " " " " " 
+	// Caso base: si longCombAConseguir es 0 --> sacar a consola la combinación actual
+	private static void combinacionesAyB( String combEnCurso, int longCombAConseguir ) {
+		if (longCombAConseguir==1) {
+			System.out.println( combEnCurso + "A" );
+			System.out.println( combEnCurso + "B" );
+		} else {
+			combinacionesAyB( combEnCurso + "A", longCombAConseguir-1 );
+			combinacionesAyB( combEnCurso + "B", longCombAConseguir-1 );
+		}
 	}
 	
 	// 1,1,2,3,5,8,13,21...

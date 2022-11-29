@@ -13,9 +13,37 @@ public class PruebasDeRecursividad {
 		// System.out.println( fib(45) );
 		// System.out.println( numLlamadas );
 		// combinacionesAyB( "", 5 );
-		combinaciones( "ABCDEFG", "", 3 );
-		hanoi( 10, 'a', 'c', 'b' );
+		// combinaciones( "ABCDEFG", "", 3 );
+		// hanoi( 10, 'a', 'c', 'b' );
+		int[] vector = { 1, 3, 7, 11, 15, 19, 21, 23, 31, 35, 39, 42, 48, 51 };
+		System.out.println( buscarValor( vector, 0, vector.length-1, 21 ) );
 	}
+	
+	// Devuelvo la posición si se encuentra, -1 si no se encuentra
+	// ¿Qué es buscarValor recursivo del vector desde inicio hasta fin?
+	// - calcular mitad
+	//   - comparar elemento en la mitad con el que busco:
+	//     - si son iguales, caso base de éxito: devuelvo la posición mitad
+	//     - si buscado > elemento de la mitad, devuelvo buscarValor desde mitad+1 hasta fin
+	//     - si buscado < elemento de la mitad, devuelvo buscarValor desde inicio hasta mitad-1
+	// - caso base de fracaso: inicio > fin  [vector vacío]
+	private static int buscarValor( int[] vector, int inicio, int fin, int buscado ) {
+		System.out.println( "Buscando valor " + buscado + " entre " + inicio + " y " + fin );
+		if (inicio > fin) {
+			return -1;
+		} else {
+			int mitad = (inicio + fin) / 2;
+			if (buscado == vector[mitad]) {
+				return mitad;
+			} else if (buscado > vector[mitad]) {
+				return buscarValor( vector, mitad+1, fin, buscado );
+			} else {
+				return buscarValor( vector, inicio, mitad-1, buscado );
+			}
+		}
+	}
+	
+	
 	
 	private static void hanoi( int numDiscos, char origen, char destino, char auxiliar ) {
 		if (numDiscos==1) {

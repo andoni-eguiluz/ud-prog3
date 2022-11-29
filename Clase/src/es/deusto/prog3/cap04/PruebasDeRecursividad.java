@@ -12,10 +12,32 @@ public class PruebasDeRecursividad {
 		// System.out.println( factorial( 16 ) );
 		// System.out.println( fib(45) );
 		// System.out.println( numLlamadas );
-		combinacionesAyB( "", 5 );
+		// combinacionesAyB( "", 5 );
+		combinaciones( "ABCDEFG", "", 3 );
+		hanoi( 10, 'a', 'c', 'b' );
+	}
+	
+	private static void hanoi( int numDiscos, char origen, char destino, char auxiliar ) {
+		if (numDiscos==1) {
+			System.out.println( "Mover disco 1 de " + origen + " a " + destino );
+		} else {
+			hanoi( numDiscos-1, origen, auxiliar, destino );
+			System.out.println( "Mover disco " + numDiscos + " de " + origen + " a " + destino );
+			hanoi( numDiscos-1, auxiliar, destino, origen );
+		}
 	}
 	
 	
+	private static void combinaciones( String opciones, String combEnCurso, int longCombAConseguir ) {
+		if (longCombAConseguir==0) {
+			System.out.println( combEnCurso );
+		} else {
+			for (int i=0; i<opciones.length(); i++) {
+				combinaciones( opciones, combEnCurso + opciones.charAt(i),
+						longCombAConseguir-1 );
+			}
+		}
+	}
 	
 	// Generar combinaciones de 5 letras de A y B:
 	// Caso recursivo:

@@ -240,6 +240,7 @@ public class VentanaBancoDePruebas extends JFrame {
 			tArbol.repaint();
 			final Object alArbol = o;
 			Thread hilo = new Thread( () -> { 
+				try { Thread.sleep(100); } catch (InterruptedException e) {}
 				if (atributosAVer==null || atributosAVer.isEmpty())
 					tArbol.setModel( ExploradorObjetos.atributosYValoresToTree( alArbol ) );
 				else 

@@ -615,6 +615,8 @@ public class ExploradorObjetos {
 		
 		VentanaBancoDePruebas vEj = new VentanaBancoDePruebas( ts, "Ejemplo de treeset en ventana" );
 		vEj.setVisible( true );
+		vEj.setAtributosAVer( "m#root#size#key#value#left#right#parent#color" );
+		vEj.setObjeto( ts );
 
 		Object oo = new Object();
 		Integer i = 5;

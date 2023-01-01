@@ -14,6 +14,7 @@ public class YLaLuna {
 	//   cálculo( grosor*2, distancia, num dobleces + 1 ) si grosor < distancia
 	//   num dobleces si grosor >= distancia
 	private static void aLaLuna( double grosor, double dist, long numDob ) {
+		System.out.println( "Tras " + numDob + " dobleces, grosor = " + grosor );
 		if (grosor >= dist) {
 			System.out.println( "Luna encontrada en " + numDob + " dobleces!" );
 		} else {

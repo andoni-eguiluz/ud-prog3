@@ -23,7 +23,7 @@ public class VentanaConfirmacionLenta {
 	}
 	
 	public static void main(String[] args) {
-		// TODO Desarrollar la clase de acuerdo a los comentarios de la cabecera
+		// TODO  Desarrollar la clase de acuerdo a los comentarios de la cabecera
 	}
 
 }

@@ -22,7 +22,7 @@ public class PruebaJLabelGrafico extends JFrame {
 		// Configuración de la ventana
 		setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
 		setSize( 600, 400 );
-		setLocation( 2000, 0 );
+		// setLocation( 2000, 0 );
 		
 		// Creamos los contenedores
 		pJuego = new JPanel();
@@ -70,7 +70,7 @@ public class PruebaJLabelGrafico extends JFrame {
 			// g.drawLine( 0,  0,  100,  100 );
 			Image img = ((ImageIcon)getIcon()).getImage();
 			Graphics2D g2 = (Graphics2D) g;
-			g2.rotate( Math.PI / 4 );
+			g2.rotate( 3 * Math.PI / 4, 50, 50 );
 			g2.drawImage( img, 0, 0, 100, 100, null  );
 		}
 	}

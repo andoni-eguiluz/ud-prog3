@@ -20,6 +20,8 @@ import javax.swing.*;
  */
 public class VentanaConfirmacionLenta {
 
+	private static Thread hilo;
+	
 		private static Random r = new Random();
 	// Este método simula un proceso que tarda un tiempo en hacerse (entre 5 y 10 segundos)
 	private static void procesoConfirmar() {
@@ -50,9 +52,31 @@ public class VentanaConfirmacionLenta {
 			// A cambio, tiene que ser final (no puede cambiar de valor)
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				bAceptar.setEnabled( false );
 				System.out.println( "Pulsado botón" );
 				bAceptar.setForeground( Color.RED );
-				procesoConfirmar();
+				hilo = new Thread() {
+					@Override
+					public void run() {
+						System.out.println( "Inicio proceso" );
+						System.out.println( hilo.isAlive() + " " + hilo.getState() );
+						procesoConfirmar();
+						System.out.println( "Fin proceso" );
+						bAceptar.setEnabled( true );
+					}
+				};
+				// Podría hacerse impl Runnable
+//				Thread hilo2 = new Thread( new Runnable() {
+//					@Override
+//					public void run() {
+//						procesoConfirmar();
+//					}
+//				});
+				// procesoConfirmar(); en vez de hacerlo desde el escuchador que lo haga el hilo
+				// hilo.run();
+				
+				hilo.start(); // Magia -- se CREA un nuevo hilo de ejecución y se le pasa la tarea de run()
+				
 			}
 		});
 		
@@ -68,4 +92,9 @@ public class VentanaConfirmacionLenta {
 		}
 	}
 
+	// Podría hacerse clase interna con nombre
+	private static class MiHilo extends Thread {
+		
+	}
+	
 }

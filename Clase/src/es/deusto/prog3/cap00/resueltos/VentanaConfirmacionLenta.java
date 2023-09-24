@@ -92,9 +92,9 @@ public class VentanaConfirmacionLenta {
 		}
 	}
 
-	// Podría hacerse clase interna con nombre
-	private static class MiHilo extends Thread {
-		
-	}
+	// Podría hacerse clase interna con nombre (muy similar a interna anónima)
+	// private static class MiHilo extends Thread {
+	// 	
+	// }
 	
 }

@@ -2,18 +2,21 @@ package es.deusto.prog3.cap00.resueltos;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
 
+/** Clase que muestra cómo crear JLabels personalizados, con una imagen de coche que puede rotarse
+ * y se escala a un tamaño diferente a la imagen original
+ */
 public class PruebaJLabelGrafico extends JFrame {
+	private static final long serialVersionUID = 1L;
+
+	/** Método principal - crea una ventana de prueba y muestra un coche con el JLabel creado 
+	 * @param args	No utilizado
+	 */
 	public static void main(String[] args) {
 		PruebaJLabelGrafico vent = new PruebaJLabelGrafico();
 		vent.setVisible( true );
 		vent.mover();
 	}
-	
-	// No static
 	
 	private JPanel pJuego;
 	private MiCoche lCoche;
@@ -22,14 +25,12 @@ public class PruebaJLabelGrafico extends JFrame {
 		// Configuración de la ventana
 		setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
 		setSize( 600, 400 );
-		// setLocation( 2000, 0 );
 		
 		// Creamos los contenedores
 		pJuego = new JPanel();
 		pJuego.setLayout( null );
 		
-		// Creamos los componentes
-		// Se puede hacer con ficheros:
+		// Creamos los componentes. Se puede hacer con ficheros:
 		// lCoche = new JLabel( new ImageIcon( "src/es/deusto/prog3/cap00/resueltos/coche.png" ) );
 		// O con recursos:
 		// lCoche = new JLabel( new ImageIcon( PruebaJLabelGrafico.class.getResource("coche.png") ) );
@@ -40,7 +41,6 @@ public class PruebaJLabelGrafico extends JFrame {
 		pJuego.add( lCoche );
 		getContentPane().add( pJuego, BorderLayout.CENTER );
 		// Gestión de eventos (si procede)
-		
 	}
 	
 	private void mover() {
@@ -61,33 +61,37 @@ public class PruebaJLabelGrafico extends JFrame {
 			try {
 				Thread.sleep(50);
 			} catch (InterruptedException e) {
-				//e.printStackTrace();
+				// e.printStackTrace();  // Ojo con ocultar el tratamiento de excepción si no se tiene claro
 			}
 		}
 		// Animación de rotación
+		// Pregunta: ¿por qué no se esta animación de rotación, y sí se ve la de movimiento?
+		// Pista: redimensiona la ventana mientras está ocurriendo esta animación
+		// ¿Cómo se soluciona?
 		for (int i=0; i<200; i++) {
 			direccionPrueba += 0.05;
 			lCoche.setDireccion( direccionPrueba );
+			// Respuesta: hace falta esta línea - Swing no se entera de que hay cambio, hay que informarle
+			lCoche.repaint();
 			try {
 				Thread.sleep(50);
 			} catch (InterruptedException e) {
 				//e.printStackTrace();
 			}
 		}
-		// Pregunta: ¿por qué no se esta animación de rotación, y sí se ve la de movimiento?
-		// Pista: redimensiona la ventana mientras está ocurriendo esta animación
-		// ¿Cómo se soluciona?
 	}
 
 	/** Clase que permite crear JLabels adaptadas a un gráfico de coche que puede girar y se escala a 100x100 píxeles
 	 * @author andoni.eguiluz @ ingenieria.deusto.es
 	 */
 	private class MiCoche extends JLabel {
+		private static final long serialVersionUID = 1L;
+		private static final int TAMANYO_COCHE = 100;
 		private double direccion; // Ángulo de giro del coche
 
 		public MiCoche( ImageIcon i ) {
 			super( i );
-			setSize( 100, 100 );
+			setSize( TAMANYO_COCHE, TAMANYO_COCHE );
 		}
 		
 		/** Cambia la dirección del coche
@@ -104,8 +108,8 @@ public class PruebaJLabelGrafico extends JFrame {
 			Graphics2D g2 = (Graphics2D) g;  // Componente gráfico en el que dibujar (Graphics2D tiene más funcionalidad que Graphics)
 			Image img = ((ImageIcon)getIcon()).getImage();  // Imagen del label - la vamos a dibujar diferente
 			g2.setRenderingHint( RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON );  // suaviza la rotación
-			g2.rotate( direccion, 50, 50 );  // Rota la imagen
-			g2.drawImage( img, 0, 0, 100, 100, null  );  // Dibuja la imagen escalando a 100x100
+			g2.rotate( direccion, TAMANYO_COCHE/2, TAMANYO_COCHE/2 );  // Rota la imagen
+			g2.drawImage( img, 0, 0, TAMANYO_COCHE, TAMANYO_COCHE, null  );  // Dibuja la imagen escalando a 100x100
 		}
 	}
 	

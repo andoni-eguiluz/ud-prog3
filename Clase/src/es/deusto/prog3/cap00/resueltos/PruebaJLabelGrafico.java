@@ -8,6 +8,7 @@ import java.awt.*;
  */
 public class PruebaJLabelGrafico extends JFrame {
 	private static final long serialVersionUID = 1L;
+	private static final Dimension TAMANYO_VENTANA = new Dimension( 600, 400 );
 
 	/** Método principal - crea una ventana de prueba y muestra un coche con el JLabel creado 
 	 * @param args	No utilizado
@@ -24,7 +25,7 @@ public class PruebaJLabelGrafico extends JFrame {
 	public PruebaJLabelGrafico() {
 		// Configuración de la ventana
 		setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
-		setSize( 600, 400 );
+		setSize( TAMANYO_VENTANA );
 		
 		// Creamos los contenedores
 		pJuego = new JPanel();
@@ -86,7 +87,7 @@ public class PruebaJLabelGrafico extends JFrame {
 	 */
 	private class MiCoche extends JLabel {
 		private static final long serialVersionUID = 1L;
-		private static final int TAMANYO_COCHE = 100;
+		private static final int TAMANYO_COCHE = 200;
 		private double direccion; // Ángulo de giro del coche
 
 		public MiCoche( ImageIcon i ) {

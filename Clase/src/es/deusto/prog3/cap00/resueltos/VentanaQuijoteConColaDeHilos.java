@@ -62,7 +62,7 @@ public class VentanaQuijoteConColaDeHilos extends JFrame {
 			public void run() {
 				// Thread yo = hiloActual;  // En vez de guardar el hilo para cogerlo en la variable
 				Thread yo = this;  // ... lo podemos tomar directamente del this
-				hilosActivos.add( yo ); // me añado al principio de la cola
+				hilosActivos.add( yo ); // me añado al final de la cola
 				while (hilosActivos.get(0) != yo) {
 					System.out.println( "Soy " + yo.getName() + " y la cola es " + hilosActivos );
 					try {

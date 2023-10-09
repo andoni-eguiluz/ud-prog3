@@ -1,0 +1,30 @@
+1	Alicante	338577	Alicante	Comunidad Valenciana
+2	Almería	201775	Almería	Andalucía
+3	Badalona	223506	Barcelona	Cataluña
+4	Barcelona	1636193	Barcelona	Cataluña
+5	Bilbao	344127	Vizcaya	Euskadi
+6	Cartagena	216961	Murcia	Murcia
+7	Córdoba	319515	Córdoba	Andalucía
+8	Elche	235580	Alicante	Comunidad Valenciana
+9	Gijón	267706	Asturias	Asturias
+10	Granada	228682	Granada	Andalucía
+11	HospitaletdeLlobregat	265444	Barcelona	Cataluña
+12	JerezdelaFrontera	212730	Cádiz	Andalucía
+13	LaCoruña	244700	LaCoruña	Galicia
+14	LasPalmasdeGranCanaria	378797	LasPalmas	Canarias
+15	Madrid	3280782	Madrid	Madrid
+16	Málaga	579076	Málaga	Andalucía
+17	Móstoles	208761	Madrid	Madrid
+18	Murcia	462979	Murcia	Murcia
+19	Oviedo	215167	Asturias	Asturias
+20	PalmadeMallorca	415940	Baleares	Baleares
+21	Pamplona	203418	Navarra	Navarra
+22	Sabadell	215760	Barcelona	Cataluña
+23	SantaCruzdeTenerife	208688	SantaCruzdeTenerife	Canarias
+24	Sevilla	681998	Sevilla	Andalucía
+25	Tarrasa	224114	Barcelona	Cataluña
+26	Valencia	792492	Valencia	Comunidad Valenciana
+27	Valladolid	295639	Valladolid	Castilla y León
+28	Vigo	292374	Pontevedra	Galicia
+29	Vitoria	253672	Álava	Euskadi
+30	Zaragoza	673010	Zaragoza	Aragón

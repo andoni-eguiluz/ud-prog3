@@ -18,7 +18,6 @@ public class Ejercicio06_03 {
 		ventana = new JFrame( "Ejercicio 6.3" );
 		ventana.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
 		ventana.setLocationRelativeTo( null );
-ventana.setLocation( 2500, 200 ); // Para clase - no hace falta en una pantalla
 		ventana.setSize( 200, 80 );
 
 		JButton bCargaMunicipios = new JButton( "Carga municipios > 200k" );

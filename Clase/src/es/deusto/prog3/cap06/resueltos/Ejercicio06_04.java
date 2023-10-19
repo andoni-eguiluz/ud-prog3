@@ -173,7 +173,14 @@ public class Ejercicio06_04 extends JFrame{
 		}
 		modeloArbol.removeNodeFromParent( nodoABorrar );
 	}
+
+	@SuppressWarnings("unused")
+	// Si hubiera que cambiar valores de nodo:
+	private void cambiaValorNodo( Object dato, DefaultMutableTreeNode nodo ) {
+		modeloArbol.valueForPathChanged( new TreePath( modeloArbol.getPathToRoot( nodo ) ), dato );
+	}
 	
+	@SuppressWarnings("serial")
 	public static class MiJTree extends JTree {
 		public void expandir( TreePath path, boolean estado ) {
 			setExpandedState( path, estado );

@@ -159,7 +159,9 @@ public class Ejercicio06_04 extends JFrame{
 	private DefaultMutableTreeNode crearNodo( Object dato, DefaultMutableTreeNode nodoPadre, int posi ) {
 		DefaultMutableTreeNode nodo1 = new DefaultMutableTreeNode( dato );
 		// raiz.add(nodo1);  -- atención, si lo hacemos así el modelo no se entera y no se refresca
-		modeloArbol.insertNodeInto( nodo1, nodoPadre, posi );
+		// En ese caso habría que informar explícitamente al modelo del árbol que se ha insertado un nodo, refrescando así la GUI
+		// modeloArbol.nodesWereInserted( raiz, new int[] { raiz.getChildCount()-1 } );
+		modeloArbol.insertNodeInto( nodo1, nodoPadre, posi ); // Este método hace las dos cosas: inserta y notifica a los escuchadores del modelo
 		tree.expandir( new TreePath(nodo1.getPath()), true );
 		return nodo1;
 	}

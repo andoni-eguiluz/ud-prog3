@@ -1,4 +1,4 @@
-package es.deusto.prog3.cap06;
+package es.deusto.prog3.cap04;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -18,7 +18,26 @@ import javax.swing.tree.TreePath;
 public class ArbolDeFunciones {
 
 	private static long ESPERA = 1000; 
+	// Llamadas a las pruebas
 	
+	public static void main(String[] args) {
+		JFrame vP = new JFrame();
+		vP.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );  // Los hilos de fib/hanoi no están programados para pararse. Paramos desde la ventana principal todo 
+		JPanel p = new JPanel();
+		p.setLayout( new GridLayout(0,1) );
+		vP.getContentPane().add( p, BorderLayout.CENTER );
+		JButton b;
+		p.add( b = new JButton( "Visualización arraylist") );
+			b.addActionListener( (e) -> { pruebaArrayList(); } ); 
+		p.add( b = new JButton( "Hanoi") );
+			b.addActionListener( (e) -> { pruebaHanoi(); } );
+		p.add( b = new JButton( "Fibonacci") );
+			b.addActionListener( (e) -> { pruebaFibonacci(); } );  // ver clase JPanelConFondo
+		vP.pack();
+		vP.setVisible( true );
+	}
+	
+	@SuppressWarnings("serial")
 	private class Ventana extends JFrame {
 		private JTree2 tree;
 		public Ventana( boolean conPausa ) {
@@ -102,22 +121,6 @@ public class ArbolDeFunciones {
 	// Métodos para pruebas de representación en árbol
 	//
 	
-		private static void pruebaAMano() {
-			(new Thread() {
-				@Override
-				public void run() {
-					ArbolDeFunciones arbol = new ArbolDeFunciones( "Test Manual", false );
-					DefaultMutableTreeNode nodo = arbol.anyadeNodoHijo( "Prueba 1", null );
-					arbol.anyadeNodoHijo( "Prueba 2", null );
-					DefaultMutableTreeNode n3 = arbol.anyadeNodoHijo( "Prueba 3", nodo );
-					arbol.anyadeNodoHijo( "Prueba 4", nodo );
-					try { Thread.sleep( 2000 ); } catch (InterruptedException e) { }
-					arbol.cambiaValorNodo( "Prueba 3 modificada", n3 );
-				}
-			}).start();
-			
-		}
-		
 			private static int fibonacci( int n, ArbolDeFunciones arbol, DefaultMutableTreeNode padre ) {
 				/* parada */ while (arbol.isPaused()) try { Thread.sleep( 500 ); } catch (Exception e) {}
 				DefaultMutableTreeNode nuevaLlamada = arbol.anyadeNodoHijo( "fib("+n+")", padre );
@@ -198,27 +201,6 @@ public class ArbolDeFunciones {
 			visuArrayList(l1,arbol,null);
 		}
 		
-	// Llamadas a las pruebas
-		
-	public static void main(String[] args) {
-		JFrame vP = new JFrame();
-		vP.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );  // Los hilos de fib/hanoi no están programados para pararse. Paramos desde la ventana principal todo 
-		JPanel p = new JPanel();
-		p.setLayout( new GridLayout(10,1) );
-		vP.getContentPane().add( p, BorderLayout.CENTER );
-		JButton b;
-		p.add( b = new JButton( "Visualización arraylist") );
-			b.addActionListener( (e) -> { pruebaArrayList(); } ); 
-		p.add( b = new JButton( "JTree manual") );
-			b.addActionListener( (e) -> { pruebaAMano(); } );
-		p.add( b = new JButton( "Hanoi") );
-			b.addActionListener( (e) -> { pruebaHanoi(); } );
-		p.add( b = new JButton( "Fibonacci") );
-			b.addActionListener( (e) -> { pruebaFibonacci(); } );  // ver clase JPanelConFondo
-		vP.pack();
-		vP.setVisible( true );
-	}
-
 }
 
 /** Clase de utilidad que expone de forma pública el método #setES

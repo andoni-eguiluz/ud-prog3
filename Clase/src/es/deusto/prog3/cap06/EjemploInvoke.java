@@ -22,9 +22,35 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
+/** Prueba de invokeLater
+ * @author andoni.eguiluz @ ingenieria.deusto.es
+ */
 @SuppressWarnings("serial")
 public class EjemploInvoke extends JFrame implements ActionListener
 {
+	private static boolean testNoMeDatiempo = true;
+	public static void main(String[] args)
+	{
+		if (testNoMeDatiempo) {
+			// Se crea y se muestra la ventana desde el hilo principal, no el de swing
+			// El setVisible() activa la ventana y al hilo de swing para que la pinte...
+			// ...con lo que swing a veces muestra la ventana a medias 
+			// (mientras el main todavía la está construyendo)
+			new EjemploInvoke();
+		} else {
+			// En cambio así aunque el setVisible se haga muy pronto, 
+			// así construye toda la ventana antes de pintarla
+			// (setVisible marca que la ventana se pinte, pero hasta que no acaba el 
+			// trabajo de este código COMPLETO Swing no puede ponerse a pintar)
+			SwingUtilities.invokeLater( new Runnable() {
+				@Override
+				public void run() {
+					new EjemploInvoke();
+				}
+			} );
+		}
+		Utils.muestraThreadsActivos();	
+	}
 	private final JPanel contentPane, panelDerecho;
 	private final JButton btnSalir;
 
@@ -147,27 +173,4 @@ public class EjemploInvoke extends JFrame implements ActionListener
 		}
 	}
 	
-	private static boolean testNoMeDatiempo = true;
-	public static void main(String[] args)
-	{
-		if (testNoMeDatiempo) {
-			// Se crea y se muestra la ventana desde el hilo principal, no el de swing
-			// El setVisible() activa la ventana y al hilo de swing para que la pinte...
-			// ...con lo que swing a veces muestra la ventana a medias 
-			// (mientras el main todavía la está construyendo)
-			new EjemploInvoke();
-		} else {
-			// En cambio así aunque el setVisible se haga muy pronto, 
-			// así construye toda la ventana antes de pintarla
-			// (setVisible marca que la ventana se pinte, pero hasta que no acaba el 
-			// trabajo de este código COMPLETO Swing no puede ponerse a pintar)
-			SwingUtilities.invokeLater( new Runnable() {
-				@Override
-				public void run() {
-					new EjemploInvoke();
-				}
-			} );
-		}
-		Utils.muestraThreadsActivos();	
-	}
 }

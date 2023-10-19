@@ -24,13 +24,13 @@ public class VisualDeRecursividad {
 	
 	@SuppressWarnings("serial")
 	private class Ventana extends JFrame {
-		private JTree2 tree;
+		private JTreeES tree;
 		public Ventana( boolean conPausa ) {
 			setTitle( "Arbol de funciones" );
 			setSize( 640, 480 );
 			setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
 			setLocationRelativeTo( null );
-			tree = new JTree2();
+			tree = new JTreeES();
 			tree.addKeyListener( new KeyAdapter() {  // Para ampliar font con Ctrl++
 				@Override
 				public void keyReleased(KeyEvent e) {
@@ -248,7 +248,7 @@ public class VisualDeRecursividad {
  * @author andoni.eguiluz @ ingenieria.deusto.es
  */
 @SuppressWarnings("serial")
-class JTree2 extends JTree {
+class JTreeES extends JTree {
 	@Override
 	protected void setExpandedState(TreePath path, boolean state) {
 		super.setExpandedState(path, state);

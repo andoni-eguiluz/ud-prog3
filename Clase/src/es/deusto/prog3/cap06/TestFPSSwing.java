@@ -5,6 +5,10 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.Random;
 
+/** Prueba de frames por segundo de un dibujado mínimo en Swing
+ * con tres técnicas diferentes
+ * @author andoni.eguiluz @ ingenieria.deusto.es
+ */
 public class TestFPSSwing {
 	private static boolean sigue = true;
 	private static JFrame f;
@@ -25,7 +29,7 @@ public class TestFPSSwing {
 	private static void test1() {
 		p.restartFPS();
 		while (sigue) {
-			p.repaint();
+			p.repaint();  // Pide a Swing que repinte cuando le toque
 		}
 	}
 	private static void test2() {

@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-
 // Ejemplo basado en http://www.jtattoo.net/HowTo_MinFrame.html
 // Descargar y enlazar JTattoo-1.6.11.jar de http://www.jtattoo.net/Download.html
 
@@ -50,7 +49,7 @@ public class EjemploJTatoo extends JFrame {
             }
         });
         
-    } // end CTor MinFrame
+    }
     
 
     static int posLAF = 1;
@@ -74,16 +73,19 @@ public class EjemploJTatoo extends JFrame {
         ventana.setLocation( POS_X_VENTANA, 32);
         ventana.setVisible( true );
     	posLAF = 1;
+    	// Va cambiando L&F cada 4 segundos
+    	System.out.println( "Iterando cada 4 segundos entre " + lookAndFeels.length + " L&F distintos" );
     	while (true) {
-    		try { Thread.sleep( 2000 ); } catch (Exception e) {}
+    		try { Thread.sleep( 4000 ); } catch (Exception e) {}
     		SwingUtilities.invokeLater(new Runnable() {
     			public void run() {
     				try {
     					UIManager.setLookAndFeel( lookAndFeels[ posLAF ] );
+    					Point posAnterior = ventana.getLocation();
     					ventana.dispose();
     					ventana = new EjemploJTatoo();
     					ventana.setTitle( lookAndFeels[posLAF] );
-    			        ventana.setLocation( POS_X_VENTANA, 32);
+    			        ventana.setLocation( posAnterior );
     			        ventana.setVisible( true );
     				} catch (Exception ex) {
     					ex.printStackTrace();
@@ -92,6 +94,6 @@ public class EjemploJTatoo extends JFrame {
     		});
     		posLAF++;  if (posLAF==lookAndFeels.length) posLAF=0;
     	}
-    } // end main
+    }
     
-} // end class MinFrame
+}

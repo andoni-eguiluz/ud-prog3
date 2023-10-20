@@ -5,7 +5,7 @@ import java.util.Date;
 
 import javax.swing.*;
 
-public class EjemplosComponentesJava {
+public class EjemploSpinner {
 
 	public static void main(String[] args) {
 		ejemploSpinnerHora();

@@ -28,23 +28,11 @@ public class PruebaDibujarLinea extends JPanel {
 		f = new JFrame();
 		f.setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
 		f.setSize( 800, 600 );
-		f.setLocation( new Point(2000,0) ); // Cambia la posición de la ventana
 		f.add( p, BorderLayout.CENTER );
 		f.setVisible( true );
-		/* 
-		try {
-			SwingUtilities.invokeAndWait( new Runnable() {
-				@Override
-				public void run() {  
-					// Esto se ejecutará cuando toda la actividad de dibujado de swing 
-					// haya acabado
-				}
-			});
-		} catch (Exception e1) {}
-		*/
 		Graphics2D g = (Graphics2D) p.getGraphics();
 		dibujarLinea( g, Color.black ); // Por qué esta no la dibuja?...
-		try { Thread.sleep(100); } catch (InterruptedException e) {}  // Y si la pausa es menor?
+		try { Thread.sleep(10); } catch (InterruptedException e) {}  // Y si la pausa es menor?
 		dibujarLinea( g, Color.blue ); // Y esta sí... pero relativamente...?
 	}
 	

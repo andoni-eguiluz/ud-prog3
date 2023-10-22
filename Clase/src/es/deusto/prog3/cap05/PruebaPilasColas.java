@@ -20,21 +20,27 @@ public class PruebaPilasColas {
 		while (!cola.isEmpty())
 			System.out.print( " " + cola.removeFirst() );
 		System.out.println();
-		int numEls = 100000;
+		int numEls = 150000;
 		visuTiempo( "Análisis de tiempos:", true );
 		for (int i=0; i<numEls; i++) lista.add(i);
-		visuTiempo( "Crear lista de " + numEls + " datos" );
-		for (int i=0; i<numEls; i++) { lista2.add( i/2, i ); if (i%10000==0) System.out.print( " " + i ); } System.out.println();
-		visuTiempo( "Crear lista por el medio" );
-		for (int i=0; i<numEls; i++) pila.push(i);
-		visuTiempo( "Crear pila de " + numEls + " datos" );
+		visuTiempo( "Tiempo de crear lista de " + numEls + " datos" );
+		for (int i=0; i<numEls; i++) lista.removeFirst();
+		visuTiempo( "Tiempo de vaciar lista" );
+		
 		for (int i=0; i<numEls; i++) cola.addLast(i);
-		visuTiempo( "Crear cola de " + numEls + " datos" );
-		for (int i=numEls-1; i>=0; i--) { lista.remove( i/2 ); if (i%10000==0) System.out.print( " " + i ); } System.out.println();
-		visuTiempo( "Vaciar lista por el medio" );
-		for (int i=0; i<numEls; i++) pila.pop();
-		visuTiempo( "Vaciar pila" );
+		visuTiempo( "Tiempo de crear cola de " + numEls + " datos" );
 		for (int i=0; i<numEls; i++) cola.removeFirst();
-		visuTiempo( "Vaciar cola" );
+		visuTiempo( "Tiempo de vaciar cola" );
+		
+		for (int i=0; i<numEls; i++) pila.push(i);
+		visuTiempo( "Tiempo de crear pila de " + numEls + " datos" );
+		for (int i=0; i<numEls; i++) pila.pop();
+		visuTiempo( "Tiempo de vaciar pila" );
+		
+		for (int i=0; i<numEls; i++) { lista2.add( i/2, i ); if (i%10000==0) System.out.print( " " + i ); } System.out.println();
+		visuTiempo( "Tiempo de crear lista por el medio" );
+		for (int i=numEls-1; i>=0; i--) { lista2.remove( i/2 ); if (i%10000==0) System.out.print( " " + i ); } System.out.println();
+		visuTiempo( "Tiempo de vaciar lista por el medio" );
+
 	}
 }

@@ -25,8 +25,7 @@ public class UtilidadArrayList {
     @SuppressWarnings("unchecked")
     public static <E> int getArrayListCapacity(ArrayList<E> arrayList) {
         try {
-            final E[] elementData = (E[]) atributoElementData.get(arrayList);
-            return elementData.length;
+        	return ((E[]) atributoElementData.get(arrayList)).length;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

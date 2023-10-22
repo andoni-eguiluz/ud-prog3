@@ -46,7 +46,7 @@ public class AnalisisEjecucion {
 	}
 	
 	/** Visualiza la memoria recién usada, el mensaje y la memoria libre
-	 * @param mens	Mensaje a visualizar en consola System.out
+	 * @param mens	Mensaje a visualizar en consola System.out (con salto de línea posterior)
 	 * 				Si es null se calculan las memorias relativas pero no se visualizan.
 	 * @param visuSiempre	Si true, saca siempre el mensaje. Si false, solo
 	 * 						lo saca si se ha usado algo de memoria desde la última llamada.
@@ -59,6 +59,25 @@ public class AnalisisEjecucion {
 				System.out.print( "[" + String.format( "%1$,1d", memRecienUsada ) + " bytes] " );
 			}
 			System.out.println( mens );
+			// Sacar la memoria total libre:
+			// System.out.println( String.format( " - %1$,1d bytes libres", memLibre ) );
+		}
+	}
+	
+	/** Visualiza la memoria recién usada, el mensaje y la memoria libre
+	 * @param mens	Mensaje a visualizar en consola System.out (sin salto de línea posterior)
+	 * 				Si es null se calculan las memorias relativas pero no se visualizan.
+	 * @param visuSiempre	Si true, saca siempre el mensaje. Si false, solo
+	 * 						lo saca si se ha usado algo de memoria desde la última llamada.
+	 */
+	public static void visuMemNoLn( String mens, boolean visuSiempre ) {
+		calcMemAprox();
+		if (mens==null) return;
+		if (visuSiempre || memRecienUsada!=0) {
+			if (memRecienUsada != -1) {
+				System.out.print( "[" + String.format( "%1$,1d", memRecienUsada ) + " bytes] " );
+			}
+			System.out.print( mens );
 			// Sacar la memoria total libre:
 			// System.out.println( String.format( " - %1$,1d bytes libres", memLibre ) );
 		}

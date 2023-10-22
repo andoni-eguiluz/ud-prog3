@@ -31,8 +31,10 @@ public class PruebasListas {
 			int num = 75;
 			for (int i=0; i<num; i++) {
 				int numAdds = 1;
+				visuMem( null, false );  // Reinicia memoria
 				for (int j=0; j<numAdds; j++) l.add(null);
-				visuMem( "Tras meter " + numAdds + " datos nulos en ArrayList (tam = " + l.size() + ", cap = " + UtilidadArrayList.getArrayListCapacity(l) + ")", false );
+				visuMemNoLn( "Tras meter ", true );
+				System.out.println( numAdds + " datos nulos en ArrayList (tam = " + l.size() + ", cap = " + UtilidadArrayList.getArrayListCapacity(l) + ")" );
 			}
 		}
 		if (numPrueba==2 || numPrueba==3) {
@@ -41,8 +43,10 @@ public class PruebasListas {
 			int num = 20;
 			for (int i=0; i<num; i++) {
 				int numAdds = 1;
+				visuMem( null, false );  // Reinicia memoria
 				for (int j=0; j<numAdds; j++) l2.add(null);
-				visuMem( "Tras meter " + numAdds + " datos nulos en LinkedList (tam = " + l2.size() + ")", false );
+				visuMemNoLn( "Tras meter ", true );
+				System.out.println( numAdds + " datos nulos en LinkedList (tam = " + l2.size() + ")" );
 			}
 		}
 	}

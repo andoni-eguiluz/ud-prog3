@@ -4,18 +4,21 @@ import java.awt.*;
 import javax.swing.*;
 
 @SuppressWarnings("serial")
-public class EjemploTabbedPane extends JFrame {
+public class EjemploTabbedYSplit extends JFrame {
 
    public static void main( String args[] )
    {
-      EjemploTabbedPane v = new EjemploTabbedPane();
+      EjemploTabbedYSplit v = new EjemploTabbedYSplit();
       v.setVisible( true );
    }
 
-   public EjemploTabbedPane() {
-      super( "Ejemplo de JTabbedPane" );
-      setSize( 800, 600 );
+   public EjemploTabbedYSplit() {
+      super( "Ejemplo de JTabbedPane y JSplitPane" );
+      setSize( 1000, 600 );
       setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
+      
+      // Crear panel de split principal
+      JSplitPane spPrincipal = new JSplitPane( JSplitPane.HORIZONTAL_SPLIT );
       
       // Crear objeto contenedor JTabbedPane 
       JTabbedPane panelConFichas = new JTabbedPane();
@@ -53,8 +56,14 @@ public class EjemploTabbedPane extends JFrame {
       panel4.add( etiqueta4 );
       panelConFichas.addTab( "Panel tarifas del cliente", null, panel4, nombre );
 
-      // agregar JTabbedPane al contenedor
-      getContentPane().add( panelConFichas );
+      // agregar JTabbedPane al panel de split
+      spPrincipal.setRightComponent( panelConFichas );
+      JTextArea taEjemplo = new JTextArea( 10, 10 );
+      taEjemplo.setText( "Área de\ntexto de\nejemplo" );
+      spPrincipal.setLeftComponent( taEjemplo );
+
+      // agregar split al contenedor principal
+      getContentPane().add( spPrincipal );
 
      }
 

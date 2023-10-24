@@ -22,8 +22,11 @@ import javax.swing.ImageIcon;
  */
 public class ServicioPersistenciaFicheros implements ServicioPersistenciaProductos {
 	
+	// Ruta de disco local donde se almacenan las fotos de los productos
+	private static final String RUTA_FOTOS_LOCAL = "fotosProductos";
+	
+	private TreeMap<Integer,Producto> mapaProductos;  // Estructura de datos contenedora en memoria
 	private Logger logger;
-	private TreeMap<Integer,Producto> mapaProductos;
 	private String nombreFichero;
 
 	/** Crea un servicio de persistencia basado en memoria y guardado en fichero local
@@ -130,17 +133,17 @@ public class ServicioPersistenciaFicheros implements ServicioPersistenciaProduct
 	}
 	
 		private void actualizaFotoSiProcede( Producto producto ) {
-			if (!producto.getRutaFoto().startsWith("fotosProductos/")) {
+			if (!producto.getRutaFoto().startsWith( RUTA_FOTOS_LOCAL + "/" )) {
 				// Si la foto está en otra ruta, se copia a la ruta de todas las fotos
 				File fOrigen = new File( producto.getRutaFoto() );
 				if (!fOrigen.exists()) {
 					log( Level.SEVERE, "Fichero " + producto.getRutaFoto() + " no encontrado al intentar guardar producto " + producto, null );
 					return;
 				}
-				File carpeta = new File( "fotosProductos" );
+				File carpeta = new File( RUTA_FOTOS_LOCAL );
 				try {
 					Files.createDirectory( carpeta.toPath() );
-					String nuevoPath = "fotosProductos/" + fOrigen.getName();
+					String nuevoPath = RUTA_FOTOS_LOCAL + "/" + fOrigen.getName();
 					Files.copy( fOrigen.toPath(), (new File( nuevoPath )).toPath() );
 					producto.setRutaFoto( nuevoPath );
 				} catch (IOException e) {

@@ -55,7 +55,14 @@ public class TrabajosConMapas {
 		// 4.- Proceso-recorrido general
 		for (String clave : mapa.keySet()) {
 			ArrayList<InfoSesion> valor = mapa.get(clave);
-			System.out.println( "Usuario " + clave + " - sesiones " + valor );
+			System.out.print( "Usuario " + clave + " - sesiones " + valor );
+			int sumaTiempo = 0;
+			int sumaOps = 0;
+			for (InfoSesion is : valor) {
+				sumaTiempo += is.getDuracion();
+				sumaOps += is.getNumOperaciones();
+			}
+			System.out.println( " Tiempo medio por operación: " + (1.0 * sumaTiempo / sumaOps) + " sgs." );
 		}
 	}
 	

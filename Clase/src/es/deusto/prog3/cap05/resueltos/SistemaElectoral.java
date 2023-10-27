@@ -23,6 +23,7 @@ public class SistemaElectoral {
 		for (String nombre : al) {
 			hs.add( nombre );
 		}
+		System.out.println( hs );
 		System.out.println( "Número nombres: " + hs.size() );
 		// Cuenta de cuántos nombres de cada con hs y la lista origen
 		Iterator<String> hsi = hs.iterator();
@@ -45,6 +46,7 @@ public class SistemaElectoral {
 				for (CuentaNombre cn2 : hn) {  // Perdemos la eficiencia de la búsqueda hash - hay que recorrer
 					if (cn2.nombre.equals( nombre )) {
 						cn2.inc();
+						break;
 					}
 				}
 			} else {

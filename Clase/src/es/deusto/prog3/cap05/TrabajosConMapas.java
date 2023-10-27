@@ -45,7 +45,7 @@ public class TrabajosConMapas {
 		}
 		
 		// 3.- Proceso particular
-		String usuarioEjemplo = "Lucía";
+		String usuarioEjemplo = "Marcos";
 		if (mapa.containsKey( usuarioEjemplo )) {
 			System.out.println( "Usuario " + usuarioEjemplo + " tiene las sesiones: " + mapa.get(usuarioEjemplo) );
 		} else {

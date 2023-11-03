@@ -31,7 +31,7 @@ public class EjemploPreferences {
 		// En windows
 		// regedit
 		// Clave en:
-		// Equipo/HKEY_CURRENT_USER/SOFTWARE/JavaSoft/Prefs/ud/prog3/cap01
+		// Equipo/HKEY_CURRENT_USER/SOFTWARE/JavaSoft/Prefs/es/deusto/prog3/cap01
 	}
 
 }

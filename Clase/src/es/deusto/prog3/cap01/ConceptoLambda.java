@@ -43,7 +43,13 @@ public class ConceptoLambda {
 		// El código no es dato de primer orden en Java 7
 		// pero sí en Java 8, por ejemplo el código sin entrada System.out.println("cod");
 		// 1.- Puede ser el valor de una variable
-		Runnable r = () -> System.out.println("cod");
+		Runnable r = () -> { System.out.println("cod"); };
+// Es como si hiciéramos esto
+//		Runnable r = new Runnable() {
+//			public void run() {
+//				System.out.println("cod");
+//			}
+//		};
 		// 2.- Puede ser parámetro actual de un método
 		SwingUtilities.invokeLater( () -> System.out.println( "cod" ) );
 		// 3.- Puede ser devuelto por un método

@@ -12,7 +12,10 @@ public class UtilsString {
 	 * @return	Mismo string sustituyendo \t con el carácter | y \n con el carácter #; Devuelve null si s es null.
 	 */
 	public static String quitarTabsYSaltosLinea( String s ) {
-		return s.replaceAll( "\n", "|" ).replaceAll( "\t", "|" );
+		if (s==null) {
+			return null;
+		}
+		return s.replaceAll( "\n", "#" ).replaceAll( "\t", "|" );
 	}
 	
 	/** Devuelve cualquier string truncado al número de caracteres indicado, con puntos suspensivos al final si se ha truncado
@@ -33,29 +36,29 @@ public class UtilsString {
 	public static void main(String[] args) {
 		// Prueba convencional (no estructurada, no exhaustiva, no automatizable)
 //		// Versión 1
-		String prueba = "Hola\nEsto es un string con tres líneas\ny\tvarios\ttabuladores.";
-		System.out.println( prueba );
-		System.out.println( quitarTabsYSaltosLinea( prueba ));
-		System.out.println( wrapString( prueba, 3 ) );
-		System.out.println( wrapString( prueba, 10 ) );
-		System.out.println( wrapString( quitarTabsYSaltosLinea(prueba), 10 ) );
+//		String prueba = "Hola\nEsto es un string con tres líneas\ny\tvarios\ttabuladores.";
+//		System.out.println( prueba );
+//		System.out.println( quitarTabsYSaltosLinea( prueba ));
+//		System.out.println( wrapString( prueba, 3 ) );
+//		System.out.println( wrapString( prueba, 10 ) );
+//		System.out.println( wrapString( quitarTabsYSaltosLinea(prueba), 10 ) );
 		
 		// Versión 2
-//		String prueba = "Hola\nEsto es un string con tres líneas\ny\tvarios\ttabuladores.";
-//		String prueba2 = "Hola#Esto es un string con tres líneas#y|varios|tabuladores.";
-//		// System.out.println( prueba );
-//		// System.out.println( quitarTabsYSaltosLinea( prueba ));
-//		if (prueba2.equals(quitarTabsYSaltosLinea(prueba))) {
-//			System.out.println( "OK" );
-//		} else {
-//			System.out.println( "FAIL" );
-//		}
-//		// System.out.println( wrapString( prueba, 3 ) );
-//		if ("Hol...".equals(wrapString( prueba, 3))) {
-//			System.out.println( "OK" );
-//		} else {
-//			System.out.println( "FAIL" );
-//		}
+		String prueba = "Hola\nEsto es un string con tres líneas\ny\tvarios\ttabuladores.";
+		String prueba2 = "Hola#Esto es un string con tres líneas#y|varios|tabuladores.";
+		// System.out.println( prueba );
+		// System.out.println( quitarTabsYSaltosLinea( prueba ));
+		if (prueba2.equals(quitarTabsYSaltosLinea(prueba))) {
+			System.out.println( "OK" );
+		} else {
+			System.out.println( "FAIL" );
+		}
+		// System.out.println( wrapString( prueba, 3 ) );
+		if ("Hol...".equals(wrapString( prueba, 3))) {
+			System.out.println( "OK" );
+		} else {
+			System.out.println( "FAIL" );
+		}
 		// System.out.println( wrapString( prueba, 10 ) );
 		// System.out.println( wrapString( quitarTabsYSaltosLinea(prueba), 10 ) );
 

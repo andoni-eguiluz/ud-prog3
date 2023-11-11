@@ -106,6 +106,7 @@ public class Cancion {
 		lDuracion.setText( getDuracion() );
 		pbDuracion.setStringPainted( true );
 		pbDuracion.setMaximum( duracionEnSegundos );
+		pbDuracion.setEnabled( false );
 		JPanel pCentral = new JPanel();
 		pCentral.add( lDuracion );
 		pCentral.add( bSimular );
@@ -115,12 +116,15 @@ public class Cancion {
 				Thread h = (new Thread() {
 					public void run() {
 						pbDuracion.setMaximum( duracionEnSegundos );
+						pbDuracion.setEnabled( true );
+						pbDuracion.setValue( 0 );
 						for (int i=0; i<=duracionEnSegundos; i++) {
-							pbDuracion.setValue( i );
 							try {
 								Thread.sleep( 1000 );
 							} catch (InterruptedException e) {}
+							pbDuracion.setValue( i+1 );
 						}
+						pbDuracion.setEnabled( false );
 					}
 				});
 				h.setDaemon( true );

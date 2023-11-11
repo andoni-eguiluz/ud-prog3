@@ -44,8 +44,17 @@ public class UtilsStringTest {
 			fail( "No provocada excepción" );
 		} catch (IndexOutOfBoundsException e) {
 			// Nada explícito - acabar es que funciona
+			// assertTrue( true );
 		}
 	}
+	
+	// Otra manera de probar excepciones
+	@Test (expected = IndexOutOfBoundsException.class)
+	public void testWrapStringNegativo2() {
+		UtilsString.wrapString( "abcde", -5 );
+	}
+	
+	
 
 	@Test
 	public void testQuitarTabsYSaltosLinea() {
@@ -72,5 +81,49 @@ public class UtilsStringTest {
 	public void testQuitarTabsYSaltosLineaNull() {
 		assertNull( UtilsString.quitarTabsYSaltosLinea(null));
 	}
+	
+	@Test
+	public void testConvierteOrdMay() {
+//		compararStrings( "a", "b" );
+//		compararStrings( "b", "a" );
+//		compararStrings( "a", "a" );
+//		compararStrings( "A", "b" );
+//		compararStrings( "ala", "Beta" );
+//		compararStrings( "caña", "capa" );
+		assertTrue( UtilsString.convierteOrd("a").
+				compareTo( UtilsString.convierteOrd("b")) < 0 );
+		assertTrue( UtilsString.convierteOrd("b").
+				compareTo( UtilsString.convierteOrd("a")) > 0 );
+		assertTrue( UtilsString.convierteOrd("a").
+				compareTo( UtilsString.convierteOrd("a")) == 0 );
+		assertTrue( UtilsString.convierteOrd("A").
+				compareTo( UtilsString.convierteOrd("b")) < 0 );
+		assertTrue( UtilsString.convierteOrd("ala").
+				compareTo( UtilsString.convierteOrd("Beta")) < 0 );
+	}
+	
+	@Test
+	public void testConvierteOrdEnyes() {
+		assertTrue( UtilsString.convierteOrd("caña").
+				compareTo( UtilsString.convierteOrd("capa")) < 0 );
+	}
+
+	@Test
+	public void testConvierteOrdTildes() {
+		assertTrue( UtilsString.convierteOrd("cómo").
+				compareTo( UtilsString.convierteOrd("casa")) > 0 );
+		assertTrue( UtilsString.convierteOrd("cántico").
+				compareTo( UtilsString.convierteOrd("cine")) < 0 );
+		assertTrue( UtilsString.convierteOrd("dé").
+				compareTo( UtilsString.convierteOrd("de")) == 0 );
+	}
+	
+	@Test
+	public void testConvierteOrdDieresis() {
+		assertTrue( UtilsString.convierteOrd("güecho").
+				compareTo( UtilsString.convierteOrd("guion")) < 0 );
+	}
+	
+	
 	
 }

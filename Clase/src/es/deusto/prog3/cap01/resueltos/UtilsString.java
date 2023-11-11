@@ -64,4 +64,22 @@ public class UtilsString {
 
 	}
 
+	/** Convierte un string en otro comparable de forma correcta
+	 * en castellano, considerando tanto el orden alfabético
+	 * como las mayúsculas, tildes, eñes o diéresis
+	 * @param s	String original
+	 * @return	String convertido para su comparación
+	 */
+	public static String convierteOrd( String s ) {
+		String ret = s.replaceAll( "á", "a" );
+		ret = ret.replaceAll( "é", "e" );
+		ret = ret.replaceAll( "í", "i" );
+		ret = ret.replaceAll( "ó", "o" );
+		ret = ret.replaceAll( "ú", "u" );
+		ret = ret.replaceAll( "ü", "u" );
+		ret = ret.replaceAll( "ñ", "nzz" );
+		return ret;
+	}
+	
+	
 }

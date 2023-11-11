@@ -71,7 +71,8 @@ public class UtilsString {
 	 * @return	String convertido para su comparación
 	 */
 	public static String convierteOrd( String s ) {
-		String ret = s.replaceAll( "á", "a" );
+		String ret = s.toLowerCase();
+		ret = ret.replaceAll( "á", "a" );
 		ret = ret.replaceAll( "é", "e" );
 		ret = ret.replaceAll( "í", "i" );
 		ret = ret.replaceAll( "ó", "o" );

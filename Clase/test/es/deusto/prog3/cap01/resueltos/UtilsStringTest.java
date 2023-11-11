@@ -106,6 +106,8 @@ public class UtilsStringTest {
 	public void testConvierteOrdEnyes() {
 		assertTrue( UtilsString.convierteOrd("caña").
 				compareTo( UtilsString.convierteOrd("capa")) < 0 );
+		// TODO ¿Cómo sería un test de este tipo? ¿Es mejor o es peor hacerlo así?
+		assertEquals( "canzza", UtilsString.convierteOrd("caña") );
 	}
 
 	@Test

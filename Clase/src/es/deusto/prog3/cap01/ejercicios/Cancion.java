@@ -32,7 +32,7 @@ public class Cancion {
 	private String nombre = "";
 	private int duracionEnSegundos;
 
-	/** Crea una canción nueva
+	/** Crea una canción nueva de duración 0 segundos
 	 * @param nombre	Nombre de la canción (si es null se pone con string vacío)
 	 */
 	public Cancion( String nombre ) {

@@ -2,6 +2,12 @@ package es.deusto.prog3.cap01.resueltos;
 
 import static org.junit.Assert.*;
 
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
+
+import javax.swing.JFrame;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -75,7 +81,7 @@ public class CancionTest {
 	}
 	
 	@Test
-	public void getDuracionString() throws CancionException {
+	public void testGetDuracionString() throws CancionException {
 		cancion1.setDuracionEnSegundos( 40 );
 		assertEquals( "00:00:40", cancion1.getDuracion() );
 		cancion1.setDuracionEnSegundos( 60 );
@@ -96,5 +102,52 @@ public class CancionTest {
 		assertEquals( "00:00:00", cancion1.getDuracion() );
 	}
 	
+	@Test 
+	public void testGetDuracionString2() throws CancionException {
+		String[] duracionesF = { "00:00:40", "00:01:00", "00:01:05", "01:00:00", "00:59:59", "02:00:25", "02:30:05"   , "65:00:00", "00:00:00" };
+		int[] duracionesInt  = {         40,         60,         65,       3600,       3599,  2*3600+25,2*3600+30*60+5,  65*3600  ,  0         };
+		for (int i=0; i<duracionesF.length; i++) {
+			pruebaGetDuracionString( duracionesInt[i], duracionesF[i] );
+		}
+	}
+	
+	private void pruebaGetDuracionString( int numSegundos, String duracionFormateada ) throws CancionException {
+		cancion1.setDuracionEnSegundos( numSegundos );
+		assertEquals( duracionFormateada, cancion1.getDuracion() );
+	}
+
+	// Ventanas o trabajos en tiempo real
+	@Test
+	public void testGetVentanaCancion() {
+		JFrame v = cancion2.getVentanaCancion();
+		v.setVisible( true );
+		// Título
+		assertEquals( "Ventana canción", v.getTitle() );
+		// Componentes: nombre de canción, duración, botón, barra de progreso
+		assertEquals( "Edge of Glory", cancion2.tfNombre.getText() );
+		assertEquals( cancion2.getNombre(), cancion2.tfNombre.getText() );
+		assertEquals( "Simular", cancion2.bSimular.getText() );
+		assertEquals( cancion2.getDuracion(), cancion2.lDuracion.getText() );
+		assertEquals( 0, cancion2.pbDuracion.getValue() );
+		
+		// Cambio interactivo de nombre de canción
+		cancion2.tfNombre.setText( "Shallow" );
+		try {
+			cancion2.tfNombre.requestFocus();
+			Robot robot = new Robot();
+			robot.keyPress( KeyEvent.VK_ENTER );
+			try { Thread.sleep( 50 ); } catch (InterruptedException e) { }
+			robot.keyRelease( KeyEvent.VK_ENTER );
+			try { Thread.sleep( 50 ); } catch (InterruptedException e) { }
+			assertEquals( "Shallow", cancion2.getNombre() );
+		} catch (AWTException e) {
+			fail( "Robot no posible" );
+		}
+		
+		// TODO probar progressbar
+		
+		
+		
+	}
 	
 }

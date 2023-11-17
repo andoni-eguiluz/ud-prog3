@@ -102,8 +102,9 @@ public class Cancion {
 	protected JLabel lDuracion = new JLabel( "" );
 	protected JProgressBar pbDuracion = new JProgressBar();
 	protected JButton bSimular = new JButton( "Simular" );
-	/** Devuelve una ventana de edición de canción
+	/** Devuelve una ventana de edición de canción, titulada "Ventana canción"
 	 * con un botón de simulación de duración de la canción
+	 * y una edición interactiva que cambia el nombre de la canción al pulsar <Enter> en el cuadro de texto
 	 * @return	Ventana enlazada con el objeto canción, lista para visualizar
 	 */
 	public JFrame getVentanaCancion() {
@@ -145,6 +146,7 @@ public class Cancion {
 		tfNombre.addActionListener( new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				System.out.println( "Acción!" );
 				setNombre( tfNombre.getText() );
 			}
 		});

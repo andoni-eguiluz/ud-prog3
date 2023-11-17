@@ -180,7 +180,7 @@ public class EjemploSockets2 {
 								lSalidas.add( outputACliente );  // Para mensajes de difusión
 								while(!finComunicacion) {  // ciclo de lectura desde el cliente hasta que acabe la comunicación
 									String textoRecibido = inputDesdeCliente.readLine();  // Ojo: bloqueante (este hilo se queda esperando)
-									if(textoRecibido.equals("fin")) {
+									if(textoRecibido==null || textoRecibido.equals("fin")) {
 										break;
 									}
 									lEstado.setText( "Recibido de cliente " + numC + ": [" + textoRecibido + "]" );

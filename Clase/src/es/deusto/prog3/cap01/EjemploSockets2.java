@@ -3,7 +3,7 @@ package es.deusto.prog3.cap01;
 import java.io.*;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
-import java.util.ArrayList;
+import java.util.*;
 import java.net.ServerSocket;
 import java.awt.*;
 import javax.swing.*;
@@ -134,8 +134,8 @@ public class EjemploSockets2 {
         boolean finComunicacion = false;
 		// *VARIOS CLIENTES*
 		// Como el servidor va a gestionar varios clientes hacemos una lista de sockets en lugar de solo uno, y una lista de salidas para mensajes de difusión
-        ArrayList<Socket> lSockets = new ArrayList<>(); 
-        ArrayList<PrintWriter> lSalidas = new ArrayList<>();
+        Vector<Socket> lSockets = new Vector<>();  // Mejor estructura Vector porque la manejan varios hilos
+        Vector<PrintWriter> lSalidas = new Vector<>();
         int numCliente = 0;  // Añadimos un número de cliente para saber cuántos se conectan
 		public VentanaServidor() {
 			setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );

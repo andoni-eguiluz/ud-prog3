@@ -144,8 +144,27 @@ public class CancionTest {
 			fail( "Robot no posible" );
 		}
 		
-		// TODO probar progressbar
+		// Barra de progreso
+		try {
+			cancion2.setDuracionEnSegundos( 10 );
+			// Simulación de botón
+			cancion2.bSimular.doClick();
+			// Pausita hasta mitad de simulación
+			try { Thread.sleep( 5100 ); } catch (InterruptedException e) {}  // 5,1 sgs (un pelín de margen)
+			assertEquals( 5, cancion2.pbDuracion.getValue(), 1.0 ); // Más o menos a la mitad
+			// Pausita al final de la simulación
+			try { Thread.sleep( 5100 ); } catch (InterruptedException e) {}  // 5,1 sgs (un pelín de margen)
+			assertEquals( 10, cancion2.pbDuracion.getValue() ); // Al final
+			assertFalse( cancion2.pbDuracion.isEnabled() ); // Al final
+			// TODO ¿Por qué no funciona este test de pbDuracion?  Hay que corregir el error en la clase  :-)
+		} catch (CancionException e1) {
+			fail( "Error en duración" );
+		}
 		
+		// Pausita antes del cierre
+		try { Thread.sleep( 100 ); } catch (InterruptedException e) {}
+		// Cierre
+		v.dispose();
 		
 		
 	}

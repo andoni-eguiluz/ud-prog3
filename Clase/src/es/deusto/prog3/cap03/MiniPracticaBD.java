@@ -186,5 +186,7 @@ public class MiniPracticaBD {
 // OJO CON SQL INJECTION!!!!!
 //
 //  Por ejemplo si se mete en el nick esto y se da a borrar:
+//   a'; delete from usuario where nick>'a'; --
+//  o esto:
 //   a'; drop table usuario; --
 //

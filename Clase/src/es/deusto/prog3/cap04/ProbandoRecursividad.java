@@ -1,13 +1,61 @@
 package es.deusto.prog3.cap04;
 
 public class ProbandoRecursividad {
+	private static int llamadas = 0;
 	public static void main(String[] args) {
 		// prueba1(0);
 		// prueba2(0);
 		// prueba3(0);
 		// visualizaDesde0HastaN( 0, 100 );
 		// System.out.println( factorial( 21 ) );
-		System.out.println( fib(51) );
+		// System.out.println( fib(51) );
+		combinaABC();
+		combinaABClongNRec( 2, "" );
+		System.out.println( "\nCombinaciones de 3 letras");
+		combinaABClongNRec( 5, "" );
+		// Combinar cualquier longitud cualquier set de caracteres
+		combinaRec( new char[] { 'A', 'E', 'I', 'O', 'U' }, 8, "" );
+		System.out.println( "Nº llamadas: " + llamadas );
+	}
+
+	private static void combinaRec( char[] cars, int longitud, String concat ) {
+		llamadas++;
+		if (longitud==0) {
+			System.out.println( concat );
+		} else {
+			for (char letra : cars) {
+				combinaRec( cars, longitud-1, concat + letra );
+			}
+		}
+	}
+	
+	
+	
+	// Generar combinaciones de A,B,C de longitud n:
+	//  - A con las combinaciones generadas de A,B,C de longitud n-1
+	//  - B con " " " 
+	//  - C con " " " 
+	//  - Nada (ya lo tengo -> a consola) si longitud = 0
+	private static void combinaABClongNRec( int longitud, String concat ) {
+		if (longitud==0) {
+			System.out.println( concat );
+		} else {
+			combinaABClongNRec(longitud-1, concat + "A" );
+			combinaABClongNRec(longitud-1, concat + "B" );
+			combinaABClongNRec(longitud-1, concat + "C" );
+		}
+	}
+	
+	// A, B, C longitud 2
+	private static void combinaABC() {
+		char[] letras = { 'A', 'B', 'C' };
+		for (char l1 : letras) {
+			for (char l2 : letras) {
+				for (char l3 : letras) {
+					System.out.println( "" + l1 + l2 + l3 );
+				}
+			}
+		}
 	}
 	
 	// Fib(n) = fib(n-1)+fib(n-2)

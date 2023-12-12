@@ -8,6 +8,10 @@ import es.deusto.prog3.cap04.VisualDeRecursividad;
 import java.awt.*;
 
 public class OchoDamasResuelto extends JFrame {
+	
+	private static long PAUSA = 500;  // Pausa para que se vea cómo evoluciona la recursividad
+	// TODO bajar a 50 para que se vea la solución en un tiempo pequeño
+	
 	JLabel[][] tablero = new JLabel[8][8];
 	JLabel lMensaje = new JLabel( " " );
 	public OchoDamasResuelto() {
@@ -55,7 +59,7 @@ public class OchoDamasResuelto extends JFrame {
 			caso base: no hay solución - false
 	 */
 	public boolean resolverTableroDesdeFila( JLabel[][] tablero, int fila ) {
-		try { Thread.sleep(200); } catch (Exception e) {}
+		try { Thread.sleep(PAUSA); } catch (Exception e) {}
 		if (fila==8) {
 			lMensaje.setText( "Resuelto!" );
 			return true;
@@ -93,8 +97,8 @@ public class OchoDamasResuelto extends JFrame {
 			}
 		for (int c = 0; c<8; c++) // Comprueba toda la fila
 			if ((col!=c) && tablero[fila][c].getText().equals("D")) {
-				System.out.print( "Dama en " + fila + "," + col );
-				System.out.println( " amenaza a otra dama en " + fila + "," + c );
+				// System.out.print( "Dama en " + fila + "," + col );
+				// System.out.println( " amenaza a otra dama en " + fila + "," + c );
 				return true;
 			}
 		for (int inc = -7; inc<8; inc++) { // Comprueba toda la diagonal 1
@@ -102,8 +106,8 @@ public class OchoDamasResuelto extends JFrame {
 			int colD = col-inc;
 			if ((fila!=filaD) && (filaD>=0 && filaD<8 && colD>=0 && colD<8)
 					&& tablero[filaD][colD].getText().equals("D")) {
-				System.out.print( "Dama en " + fila + "," + col );
-				System.out.println( " amenaza a otra dama en " + filaD + "," + colD );
+				// System.out.print( "Dama en " + fila + "," + col );
+				// System.out.println( " amenaza a otra dama en " + filaD + "," + colD );
 				return true;
 			}
 		}
@@ -112,8 +116,8 @@ public class OchoDamasResuelto extends JFrame {
 			int colD = col+inc;
 			if ((fila!=filaD) && (filaD>=0 && filaD<8 && colD>=0 && colD<8)
 					&& tablero[filaD][colD].getText().equals("D")) {
-				System.out.print( "Dama en " + fila + "," + col );
-				System.out.println( " amenaza a otra dama en " + filaD + "," + colD );
+				// System.out.print( "Dama en " + fila + "," + col );
+				// System.out.println( " amenaza a otra dama en " + filaD + "," + colD );
 				return true;
 			}
 		}
@@ -124,8 +128,8 @@ public class OchoDamasResuelto extends JFrame {
 	// Versión de visualización de llamadas
 	public boolean resolverTableroDesdeFila( VisualDeRecursividad vr, DefaultMutableTreeNode padre, JLabel[][] tablero, int fila ) {
 		DefaultMutableTreeNode nuevaLlamada = vr.anyadeNodoHijo( "damas-fila("+fila+")", padre );
-		while (vr.isPaused()) { try { Thread.sleep(100); } catch (Exception e) {} }  // Pausa con botón
-		try { Thread.sleep(200); } catch (Exception e) {}
+		while (vr.isPaused()) { try { Thread.sleep(PAUSA); } catch (Exception e) {} }  // Pausa con botón
+		try { Thread.sleep(PAUSA); } catch (Exception e) {}
 		if (fila==8) {
 			vr.cambiaValorNodo( "damas-fila("+fila+") -> RESUELTO!", nuevaLlamada );
 			lMensaje.setText( "Resuelto!" );
@@ -133,8 +137,8 @@ public class OchoDamasResuelto extends JFrame {
 		} else {
 			for (int col=0; col<8; col++) {
 				vr.cambiaValorNodo( "damas-fila("+fila+") -> probando columna "+col, nuevaLlamada );
-				while (vr.isPaused()) { try { Thread.sleep(100); } catch (Exception e) {} }  // Pausa con botón
-				try { Thread.sleep(100); } catch (Exception e) {}
+				while (vr.isPaused()) { try { Thread.sleep(PAUSA); } catch (Exception e) {} }  // Pausa con botón
+				try { Thread.sleep(PAUSA); } catch (Exception e) {}
 				tablero[fila][col].setText("D");
 				if (esPosicionCorrecta(tablero)) {
 					boolean res = resolverTableroDesdeFila( vr, nuevaLlamada, tablero, fila+1 );

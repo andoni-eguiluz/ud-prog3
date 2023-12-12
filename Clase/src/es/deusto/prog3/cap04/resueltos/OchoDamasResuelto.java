@@ -35,7 +35,7 @@ public class OchoDamasResuelto extends JFrame {
 		// Versión de visual normal de backtracking
 		// System.out.println( "Resuelto? " + v.resolverTableroDesdeFila( v.tablero, 0 ) );
 		// Versión de visual de backtracking con seguimiento de llamadas
-		VisualDeRecursividad arbol = new VisualDeRecursividad( "Test Hanoi", true );
+		VisualDeRecursividad arbol = new VisualDeRecursividad( "Llamadas ocho damas", true );
 		System.out.println( "Resuelto? " + v.resolverTableroDesdeFila( arbol, null, v.tablero, 0 ) );
 	}
 
